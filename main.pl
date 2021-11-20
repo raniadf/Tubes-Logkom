@@ -3,6 +3,10 @@
 :- dynamic(exp/2).
 :- dynamic(level/2).
 :- dynamic(gold/1).
+/* Idenya waktu dihitung per 1 move = 1 hari, tp bisa diganti juga*/ 
+/* Goal kalo gold >= 20000 pas waktu <=365*/
+:- dynamic(time/1). 
+
 
 level(player,1).
 level(farming,1).
@@ -15,6 +19,7 @@ exp(fishing,0).
 exp(player,0).
 
 gold(0).
+time(0).
 
 /*  RULES */
 /* startGame */
@@ -79,3 +84,36 @@ status :-
     write('Exp: '),write(Player_EXP),nl,
     gold(GOLD),!,
     write('Gold: '),write(GOLD),nl.
+
+/* goal state*/
+goalState:-
+    gold(GOLD),!,time(WAKTU),!,
+    GOLD >= 20000, WAKTU =< 365,
+    write('Congratulations! You have finally collected 20000 golds!'),nl.
+
+/* fail state */
+failState :-
+    gold(GOLD),!,time(WAKTU),!,
+    GOLD =< 20000, WAKTU >= 365,
+    write('You have worked hard, but in the end result is all that matters.May God bless you in the future with kind people'),nl.
+
+/* levelUp */
+levelUp(LEVEL_Category) :-
+    level(LEVEL_Category,Y),!,
+    Z is Y + 1,
+    retract(level(LEVEL_Category,_)),
+    asserta(level(LEVEL_Category,Z)).
+
+/* addExp */
+addExp(EXP_Category,Amount) :-
+    exp(EXP_Category,Y),!,
+    NEW_EXP is Y + Amount,
+    retract(exp(EXP_Category,Y)),
+    asserta(exp(EXP_Category,NEW_EXP)).
+
+/* addGold */
+addGold(Amount) :-
+    gold(GOLD),!,
+    NEW_GOLD is GOLD + Amount,
+    retract(gold(GOLD)),
+    asserta(gold(NEW_GOLD)).
