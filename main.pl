@@ -1,11 +1,14 @@
+:- include('market.pl').
+
 /* FACTS */
 :- dynamic(role/1).
 :- dynamic(exp/2).
 :- dynamic(level/2).
 :- dynamic(gold/1).
-/* Idenya waktu dihitung per 1 move = 1 hari, tp bisa diganti juga*/ 
-/* Goal kalo gold >= 20000 pas waktu <=365*/
+/* Idenya waktu dihitung per 1 move = 1 hari, tp bisa diganti juga */ 
+/* Goal kalo gold >= 20000 pas waktu <=365 */
 :- dynamic(time/1). 
+:- dynamic(gameStarted/0).
 
 
 level(player,1).
@@ -46,6 +49,7 @@ startGame:-
 
 /* start*/
 start:-
+    \+ gameStarted,!,
     write('Welcome to Harvest Star. Choose your job.'),nl,
     write('1. Fisherman'),nl,
     write('2. Farmer'),nl,
@@ -53,13 +57,15 @@ start:-
     write('> '),read(X),
     write('You chose '),writeRole(X),write(', Let\'s start farming'),nl.
 
+start :-
+    !, write('Game sudah dimulai, ketik "help." untuk melihat aksi yang bisa dilakukan').
 /* writeRole buat nulis di start dan update role user */
 writeRole(1) :- 
-    write('Fisherman'),asserta(role('Fisherman')),!.
+    write('Fisherman'),asserta(role('Fisherman')),!,assertz(gameStarted),!.
 writeRole(2) :- 
-    write('Farmer'),asserta(role('Farmer')),!.
+    write('Farmer'),asserta(role('Farmer')),!,assertz(gameStarted),!.
 writeRole(3) :- 
-    write('Rancher'),asserta(role('Rancher')),!.
+    write('Rancher'),asserta(role('Rancher')),!,assertz(gameStarted),!.
 
 /* status */
 status :-
@@ -86,7 +92,7 @@ status :-
     write('Gold: '),write(GOLD),nl.
 
 /* goal state*/
-goalState:-
+goalState :-
     gold(GOLD),!,time(WAKTU),!,
     GOLD >= 20000, WAKTU =< 365,
     write('Congratulations! You have finally collected 20000 golds!'),nl.
@@ -117,3 +123,32 @@ addGold(Amount) :-
     NEW_GOLD is GOLD + Amount,
     retract(gold(GOLD)),
     asserta(gold(NEW_GOLD)).
+
+help :-
+    \+ gameStarted,!,
+    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl,
+    write('%                              ~Harvest Star~                                  %'),nl,
+    write('%    1. startGame -> lihat info command dasar pada game                        %'),nl,
+    write('%    2. start     -> memulai game                                              %'),nl,
+    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl.
+
+help :-
+    inMarket,!,
+    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl,
+    write('%                              ~Harvest Star~                                  %'),nl,
+    write('%    1. buy       -> membeli item                                              %'),nl,
+    write('%    2. sell      -> menjual item                                              %'),nl,
+    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl.
+
+help :-
+    gameStarted,!,
+    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl,
+    write('%                              ~Harvest Star~                                  %'),nl,
+    write('%    1. map       -> menampilkan map                                           %'),nl,
+    write('%    2. inventory -> menampilkan inventory                                     %'),nl,
+    write('%    3. w         -> bergerak ke atas                                          %'),nl,
+    write('%    4. a         -> bergerak ke kiri                                          %'),nl,
+    write('%    5. s         -> bergerak ke bawah                                         %'),nl,
+    write('%    6. d         -> bergerak ke kanan                                         %'),nl,
+    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl.
+
