@@ -24,7 +24,7 @@ exp(player,0).
 gold(0).
 time(0).
 
-/*  RULES */
+/* RULES */
 /* startGame */
 startGame:-
     write(' _   _                           _'),nl,   
@@ -43,7 +43,6 @@ startGame:-
     write('% 5. s      : gerak ke selatan 1 langkah                                       %'),nl,
     write('% 6. d      : gerak ke timur 1 langkah                                         %'),nl,
     write('% 7. a      : gerak ke barat 1 langkah                                         %'),nl,
-    write('% 9. Status : menampilkan status pemain                                        %'),nl,
     write('% 8. help   : menampilkan segala bantuan                                       %'),nl,
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl.
 
@@ -101,7 +100,7 @@ goalState :-
 failState :-
     gold(GOLD),!,time(WAKTU),!,
     GOLD =< 20000, WAKTU >= 365,
-    write('You have worked hard, but in the end result is all that matters.May God bless you in the future with kind people'),nl.
+    write('You have worked hard, but in the end result is all that matters. May God bless you in the future with kind people'),nl.
 
 /* levelUp */
 levelUp(LEVEL_Category) :-
