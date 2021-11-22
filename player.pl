@@ -37,7 +37,7 @@ initialExp :-
 
 /* Status */
 /* exp(Lv, _, Total) :- Total is 3*Lv*Lv - 2*Lv. */
-status :- player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
+status :- player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),!,
 		  write('Job            : '), write(Job), nl,
 		  write('Level          : '), write(Lvl), nl,
 		  write('Level farming  : '), write(LvlFarm), nl,
@@ -58,19 +58,19 @@ levelUp(X) :-
 	NewLvl is Lvl + 1, NewLvlFarm is LvlFarm + A, NewLvlFish is LvlFish + B, NewLvlRanch is LvlRanch + C,
 	assertz(player(Job, NewLvl, NewLvlFarm, ExpFarm, NewLvlFish, ExpFish, NewLvlRanch, ExpRanch, Exp, Gold)),
     write('Congratulations! Level up!'), nl.
-levelUpFarming() :-
+levelUpFarming :-
     player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
 	retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
 	NewLvlFarm is LvlFarm + 1,
 	assertz(player(Job, Lvl, NewLvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
     write('You\'re getting better and better at farming. Your farming level has just leveled up!'), nl.
-levelUpFishing() :-
+levelUpFishing :-
     player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
 	retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
 	NewLvlFish is LvlFish + 1, 
 	assertz(player(Job, Lvl, LvlFarm, ExpFarm, NewLvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
     write('You\'re getting better and better at fishing. Your fishing level has just leveled up!'), nl.
-levelUpRanching() :-
+levelUpRanching :-
     player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
 	retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
 	NewLvlRanch is LvlRanch + 1,
@@ -127,7 +127,7 @@ addExpFarming(X) :-
 		retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
         /* Pada saat assertz, LvlFarm tidak perlu diubah menjadi NewLvlFarm karena sudah ditanganin oleh fungsi levelUpFarming */
         assertz(player(Job, Lvl, LvlFarm, NewExpFarm2, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
-		levelUpFarming(),
+		levelUpFarming,
 		(NewExpFarm2 >= NewMax ->
 			addExpFarming(0)
 		;
@@ -159,7 +159,7 @@ addExpFishing(X) :-
 		retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
         /* Pada saat assertz, LvlFish tidak perlu diubah menjadi NewLvlFish karena sudah ditanganin oleh fungsi levelUpFishing */
         assertz(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, NewExpFish2, LvlRanch, ExpRanch, Exp, Gold)),
-		levelUpFishing(),
+		levelUpFishing,
 		(NewExpFish2 >= NewMax ->
 			addExpFishing(0)
 		;
@@ -191,7 +191,7 @@ addExpRanching(X) :-
 		retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
         /* Pada saat assertz, LvlRanch tidak perlu diubah menjadi NewLvlRanch karena sudah ditanganin oleh fungsi levelUpRanching */
         assertz(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, NewExpRanch2, Exp, Gold)),
-		levelUpRanching(),
+		levelUpRanching,
 		(NewExpRanch2 >= NewMax ->
 			addExpRanching(0)
 		;

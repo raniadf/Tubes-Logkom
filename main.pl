@@ -1,28 +1,17 @@
+:- include('player.pl').
+:- include('quest.pl').
 :- include('market.pl').
 
 /* FACTS */
 :- dynamic(role/1).
 :- dynamic(exp/2).
 :- dynamic(level/2).
-:- dynamic(gold/1).
 /* Idenya waktu dihitung per 1 move = 1 hari, tp bisa diganti juga */ 
 /* Goal kalo gold >= 20000 pas waktu <=365 */
 :- dynamic(time/1). 
 :- dynamic(gameStarted/0).
 
 
-level(player,1).
-level(farming,1).
-level(fishing,1).
-level(ranching,1).
-
-exp(farming,0).
-exp(ranching,0).
-exp(fishing,0).
-exp(player,0).
-
-gold(0).
-time(0).
 
 /* RULES */
 /* startGame */
@@ -58,71 +47,25 @@ start:-
 
 start :-
     !, write('Game sudah dimulai, ketik "help." untuk melihat aksi yang bisa dilakukan').
+
 /* writeRole buat nulis di start dan update role user */
 writeRole(1) :- 
-    write('Fisherman'),asserta(role('Fisherman')),!,assertz(gameStarted),!.
+    write('Fisherman'),
+    baseStat('fisherman',A,B,C,D,E,F,G,H,I),!,
+    asserta(player('fisherman',A,B,C,D,E,F,G,H,I)),!,
+    assertz(gameStarted),!.
 writeRole(2) :- 
-    write('Farmer'),asserta(role('Farmer')),!,assertz(gameStarted),!.
+    write('Farmer'),
+    baseStat('farmer',A,B,C,D,E,F,G,H,I),!,
+    asserta(player('farmer',A,B,C,D,E,F,G,H,I)),!,
+    assertz(gameStarted),!.
 writeRole(3) :- 
-    write('Rancher'),asserta(role('Rancher')),!,assertz(gameStarted),!.
+    write('Rancher'),
+    baseStat('rancher',A,B,C,D,E,F,G,H,I),!,
+    asserta(player('rancher',A,B,C,D,E,F,G,H,I)),!,
+    assertz(gameStarted),!.
 
 /* status */
-status :-
-    write('Your status: '),nl,
-    role(Y),!,
-    write('Job: '),write(Y),nl,
-    level(player,Player_Level),!,
-    write('Level: '),write(Player_Level),nl,
-    level(farming,Farming_Level),
-    write('Level farming: '),write(Farming_Level),nl,
-    exp(farming,Farming_EXP),!,
-    write('Exp farming: '),write(Farming_EXP),nl,
-    level(fishing,Fishing_Level),
-    write('Level fishing; '),write(Fishing_Level),nl,
-    exp(fishing,Fishing_EXP),!,
-    write('Exp fishing: '),write(Fishing_EXP),nl,
-    level(ranching,Ranching_Level),
-    write('Level ranching; '),write(Ranching_Level),nl,
-    exp(ranching,Ranching_EXP),!,
-    write('Exp ranching: '),write(Ranching_EXP),nl,
-    exp(player,Player_EXP),!,
-    write('Exp: '),write(Player_EXP),nl,
-    gold(GOLD),!,
-    write('Gold: '),write(GOLD),nl.
-
-/* goal state*/
-goalState :-
-    gold(GOLD),!,time(WAKTU),!,
-    GOLD >= 20000, WAKTU =< 365,
-    write('Congratulations! You have finally collected 20000 golds!'),nl.
-
-/* fail state */
-failState :-
-    gold(GOLD),!,time(WAKTU),!,
-    GOLD =< 20000, WAKTU >= 365,
-    write('You have worked hard, but in the end result is all that matters. May God bless you in the future with kind people'),nl.
-
-/* levelUp */
-levelUp(LEVEL_Category) :-
-    level(LEVEL_Category,Y),!,
-    Z is Y + 1,
-    retract(level(LEVEL_Category,_)),
-    asserta(level(LEVEL_Category,Z)).
-
-/* addExp */
-addExp(EXP_Category,Amount) :-
-    exp(EXP_Category,Y),!,
-    NEW_EXP is Y + Amount,
-    retract(exp(EXP_Category,Y)),
-    asserta(exp(EXP_Category,NEW_EXP)).
-
-/* addGold */
-addGold(Amount) :-
-    gold(GOLD),!,
-    NEW_GOLD is GOLD + Amount,
-    retract(gold(GOLD)),
-    asserta(gold(NEW_GOLD)).
-
 help :-
     \+ gameStarted,!,
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl,
