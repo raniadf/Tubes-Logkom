@@ -1,6 +1,7 @@
 :- include('player.pl').
 :- include('quest.pl').
 :- include('market.pl').
+:- include('items.pl').
 
 /* FACTS */
 :- dynamic(role/1).
