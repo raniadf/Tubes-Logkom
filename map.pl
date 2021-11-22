@@ -4,6 +4,13 @@
 /* ukuranPeta(A,B) peta memiliki A baris dan B kolom */
 ukuranPeta(15,20).
 
+/*Inisialisasi Posisi Obj pada peta secara manual */
+#BORDER
+elmtPeta(0,_,'#'). elmtPeta(_,0,'#'). elmtPeta(_,19,'#'). elmtPeta(14,_,'#').
+elmtPeta(5,1,'#'). elmtPeta(5,2,'#'). elmtPeta(5,3,'#'). elmtPeta(5,7,'#'). elmtPeta(5,8,'#'). elmtPeta(5,9,'#'). elmtPeta(5,10,'#').
+elmtPeta(1,10,'#'). elmtPeta(2,10,'#'). elmtPeta(3,10,'#'). elmtPeta(4,10,'#').
+
+
 /* printObjMap(A,B)*/
 printObjMap(_,20) :-
     !,write('\n').
