@@ -1,5 +1,5 @@
 /* FACTS */
-:- include(items.pl).
+:- include('items.pl').
 :- dynamic(inMarket/0).
 
 
