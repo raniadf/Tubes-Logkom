@@ -1,7 +1,10 @@
+/* Diary bakal ke overwrite kalo filenya sama */
+
+:- include('diary.pl').
 :- dynamic(inHouse/0).
-:- dynamic(diaryFile/2).
 :- dynamic(diaryExist/1).
 
+/* fakta diary*/ 
 
 posisi(house).
 
@@ -61,9 +64,10 @@ writeDiary :-
     day(DAY),!,
     write('Note: Untuk menuliskan diary gunakan tanda \'\''),nl,
     format('Write your diary for Day ~d ~n',[DAY]),
-    write('Input nama file penyimpanan: '),read(File),
-    asserta(diaryFile(DAY,File)),
-    assertz(diaryExist(DAY)),
+    diaryFile(DAY,File),!,
+    (
+        \+ diaryExist(DAY) -> assertz(diaryExist(DAY))
+    ),
     write('Input isi diary: ' ),read(X),
     write_on_file(File,X).
 
@@ -75,11 +79,11 @@ readDiary :-
     forall(diaryExist(DAY), format('- Day ~d~n',[DAY])),
     read(X),nl,
     diaryFile(X,File),
-    format('Berikut adalah isi diary day ke ~d',[DAY]),nl,
+    format('Berikut adalah isi diary day ke ~d',[X]),nl,
     read_from_file(File).
 
 write_on_file(File,Text) :-
-    open(File,write,Stream),
+    open(File,append,Stream),
     write(Stream,Text),nl,
     close(Stream).
 
