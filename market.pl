@@ -18,7 +18,6 @@ market :- write_ln('What do you want to do?'),
         write_ln('1. Buy'), 
         write_ln('2.Sell'),
         read(X), (X =:= 1 -> buy; X =:= 2 -> sell), nl, !.
-market :- 
 
 /* Buy */
 buy :- inMarket(_),

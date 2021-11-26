@@ -2,15 +2,15 @@
 :- include('quest.pl').
 :- include('market.pl').
 :- include('items.pl').
+:- include('house.pl').
 
 /* FACTS */
-:- dynamic(role/1).
-:- dynamic(exp/2).
-:- dynamic(level/2).
 /* Idenya waktu dihitung per 1 move = 1 hari, tp bisa diganti juga */ 
-/* Goal kalo gold >= 20000 pas waktu <=365 */
-:- dynamic(time/1). 
+/* Goal kalo gold >= 20000 pas day <=365 */
+:- dynamic(day/1). 
 :- dynamic(gameStarted/0).
+
+day(1).
 
 
 
@@ -95,3 +95,15 @@ help :-
     write('%    6. d         -> bergerak ke kanan                                         %'),nl,
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl.
 
+goalState :-
+    player(_,_,_,_,_,_,_,_,_,GOLD),!,
+    day(DAY),!,
+    DAY =< 365,GOLD >= 20000,
+    write('Selamat anda telah berhasil mengumpulkan 20000 gold!'),nl,
+    retract(gameStarted).
+
+failState :-
+    player(_,_,_,_,_,_,_,_,_,GOLD),!,
+    day(DAY),!,
+    DAY > 365,GOLD < 20000,
+    write('Anda sudah bekerja keras, namun sayang sekalib belum berhasil melunasi utang Anda'),nl.
