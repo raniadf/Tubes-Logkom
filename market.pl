@@ -76,6 +76,24 @@ buyEquipment :- inMarket(_),
           X=:=7 -> buy_shears ).
 
 /* Sell items */
+sell :- inMarket(_),
+    write_ln('Welcome to the market!'),
+    write_ln('What do you want to sell?'),
+    write_ln('1. Shovel                         250 gold'),
+    write_ln('2. Hand Fork                      150 gold'),
+    write_ln('3. Watering Can                   300 gold'),
+    write_ln('4. Fish Net                       200 gold'),
+    write_ln('5. Rod                            100 gold'),
+    write_ln('6. Milk Pail                      100 gold'),
+    write_ln('7. Shears                         150 gold'),
+    write_ln('Write the equipment ID!'), read(X),
+        ( X=:=1 -> buy_shovel ;
+          X=:=2 -> buy_hand_fork ;
+          X=:=3 -> buy_watering_can ;
+          X=:=4 -> buy_fish_net ;
+          X=:=5 -> buy_rod ;
+          X=:=6 -> buy_milk_pail ;
+          X=:=7 -> buy_shears ).
 
 /* Exit market */
 exitMarket :- \+inMarket, nl, write_ln('Anda belum berada di market.').
