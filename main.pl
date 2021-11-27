@@ -84,6 +84,16 @@ help :-
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl.
 
 help :-
+    inHouse,!,
+    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl,
+    write('%                              ~Harvest Star~                                  %'),nl,
+    write('%    1. sleep       -> tidur, lanjut ke hari selanjutnya                       %'),nl,
+    write('%    2. writeDiary  -> menulis diary untuk hari ini                            %'),nl,
+    write('%    3. readDiary   -> membaca diary yang sudah pernah ditulis                 %'),nl,
+    write('%    4. exitHouse   -> keluar dari house                                       %'),nl,
+    write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl.
+
+help :-
     gameStarted,!,
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl,
     write('%                              ~Harvest Star~                                  %'),nl,
