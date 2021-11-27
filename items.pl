@@ -26,9 +26,13 @@ item(rod, 5, 100, 0, 1, 0).
 
 /** Farming **/
 /* Item */
-item(chicken_food, 10, 100, 0, 0, 1).
-item(cow_food, 11, 125, 0, 0, 1).
-item(sheep_food, 12, 170, 0, 0, 1).
+item(chicken, 10, 500, 0, 0, 1).
+item(cow, 11, 1000, 0, 0, 1).
+item(sheep, 12, 1500, 0, 0, 1).
+item(chicken_egg, 13, 0, 0, 0).
+item(milk, 14, 0, 0, 0, 0).
+item(wool, 15, 0, 0, 0, 0).
+
 /* Equipment */
 item(milk_pail, 6, 100, 0, 0, 1).
 item(shears, 7, 150, 0, 0, 1).
