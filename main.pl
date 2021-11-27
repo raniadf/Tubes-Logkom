@@ -56,16 +56,19 @@ writeRole(1) :-
     write('Fisherman'),
     baseStat('fisherman',A,B,C,D,E,F,G,H,I),!,
     asserta(player('fisherman',A,B,C,D,E,F,G,H,I)),!,
+    initialExp,
     assertz(gameStarted),!.
 writeRole(2) :- 
     write('Farmer'),
     baseStat('farmer',A,B,C,D,E,F,G,H,I),!,
     asserta(player('farmer',A,B,C,D,E,F,G,H,I)),!,
+    initialExp,
     assertz(gameStarted),!.
 writeRole(3) :- 
     write('Rancher'),
     baseStat('rancher',A,B,C,D,E,F,G,H,I),!,
     asserta(player('rancher',A,B,C,D,E,F,G,H,I)),!,
+    initialExp,
     assertz(gameStarted),!.
 
 /* status */
