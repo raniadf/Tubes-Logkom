@@ -44,27 +44,29 @@ addHasil :-
 chicken :-
     telur(JUMLAH_TELUR,X),
     (
-        0 =:= JUMLAH_TELUR -> write('Ayam anda belum menghasilkan telur'),nl,
-        write('Periksa lagi di lain waktu'),nl;
+        0 =:= JUMLAH_TELUR -> write('Your chicken has not layed any eggs.'),nl,
+        write('Please check again later.'),nl;
 
-        0 < JUMLAH_TELUR -> format('Ayam anda menghasilkantelur! ~n',[JUMLAH_TELUR]),
-        format('Anda memperoleh ~d telur!~n',[JUMLAH_TELUR]),
+        0 < JUMLAH_TELUR -> format('Your chicken layed ~d eggs! ~n',[JUMLAH_TELUR]),
+        format('You got ~d eggs!~n',[JUMLAH_TELUR]),
         EXP is JUMLAH_TELUR * 2,
         addExpRanching(EXP),
         retract(telur(JUMLAH_TELUR,X)),
-        asserta(telur(0,X))
+        asserta(telur(0,X)),
+        addItem(chicken_egg,JUMLAH_TELUR)
     ).
 
 cow :-
     susu(JUMLAH_SUSU,X),
     (
-        0 =:= JUMLAH_SUSU -> write('Sapi anda belum menghasilkan susu'),nl,
-        write('Periksa lagi di lain waktu'),nl;
+        0 =:= JUMLAH_SUSU -> write('Your cow hasn’t produced any milk.'),nl,
+        write('Please check again later.'),nl;
 
         0 < JUMLAH_SUSU -> format('Sapi anda menghasilkan ~d susu! ~n',[JUMLAH_SUSU]),
-        format('Anda memperoleh ~d susu!~n',[JUMLAH_SUSU]),
+        format('You fot ~d milk!~n',[JUMLAH_SUSU]),
         EXP is JUMLAH_SUSU * 5,
         addExpRanching(EXP),
+        addItem(susu,JUMLAH_SUSU),
         retract(susu(JUMLAH_SUSU,X)),
         asserta(susu(0,X))
     ).
@@ -72,12 +74,13 @@ cow :-
 sheep :-
     wool(JUMLAH_WOOl,X),
     (
-        0 =:= JUMLAH_WOOl -> write('Domba anda belum menghasilkan wool'),nl,
-        write('Periksa lagi di lain waktu');
-        0 < JUMLAH_WOOl -> format('Domba anda menghasilkan ~d wool! ~n',[JUMLAH_WOOl]),
-        format('Anda memperoleh ~d wool!~n',[JUMLAH_WOOl]),
+        0 =:= JUMLAH_WOOl -> write('Your sheep hasn’t produced any wool.'),nl,
+        write('Please check again later.');
+        0 < JUMLAH_WOOl -> format('Your sheep produced ~d wool! ~n',[JUMLAH_WOOl]),
+        format('You got ~d wool!~n',[JUMLAH_WOOl]),
         EXP is JUMLAH_WOOl * 3,
         addExpRanching(EXP),
+        addItem(wool,JUMLAH_WOOl),
         retract(wool(JUMLAH_WOOl,X)),
         asserta(wool(0,X))
     ). 
