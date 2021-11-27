@@ -3,6 +3,8 @@
 :- include('market.pl').
 :- include('items.pl').
 :- include('house.pl').
+:- include('ranching.pl').
+
 
 /* FACTS */
 /* Idenya waktu dihitung per 1 move = 1 hari, tp bisa diganti juga */ 

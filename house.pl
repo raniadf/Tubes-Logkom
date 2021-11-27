@@ -1,6 +1,7 @@
 /* Diary bakal ke overwrite kalo filenya sama */
 
 :- include('diary.pl').
+:- include('ranching.pl').
 :- dynamic(inHouse/0).
 :- dynamic(diaryExist/1).
 
@@ -43,6 +44,7 @@ sleep :-
     NEW_DAY is X + 1,
     retract(day(X)),
     asserta(day(NEW_DAY)),
+    addHasil,
     write('Anda sudah tertidur'),nl,
     format('Day ~d ~n',[NEW_DAY]).
 
