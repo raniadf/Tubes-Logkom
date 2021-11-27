@@ -47,7 +47,7 @@ drop(Item, Count) :-
 /* addItem(X, Y) menambahkan X sebanyak Y ke dalam inventory */
 addItem(_, Count) :- Count =< 0, !, write('Item count must be more than 0'), fail.
 addItem(Item, Count) :-
-    item(Item, _),
+    item(Item, _, _, _, _, _),
     inventory(Inv),
     itemCount(Inv, IC),
     (Count + IC =< 100 ->
