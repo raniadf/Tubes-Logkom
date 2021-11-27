@@ -151,32 +151,32 @@ buy_grade_C_food :-
     (Gold >= 100), addItem(grade_c_food, 1), reduceGold(100),
     write('Congratulations! Transaction completed. +1 Grade C food in your inventory.'), nl.
 
-/* Buy chicken food */
-buy_chicken_food :- 
+/* Buy chicken */
+buy_chicken :- 
     player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
-    (Gold < 100), write('It seems like your money is not enough to buy this item T__T'), nl.
-buy_chicken_food :- 
+    (Gold < 500), write('It seems like your money is not enough to buy this cute little chicken.'), nl.
+buy_chicken :- 
     player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
-    (Gold >= 100), addItem(chicken_food, 1), reduceGold(100),
-    write('Congratulations! Transaction completed. +1 Chicken food in your inventory.'), nl.
+    (Gold >= 500), addItem(chicken, 1), reduceGold(500),
+    write('Congratulations! Transaction completed. Please raise your chicken wisely.'), nl.
 
 /* Buy cow food */
 buy_cow_food :- 
     player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
-    (Gold < 125), write('It seems like your money is not enough to buy this item T__T'), nl.
+    (Gold < 1000), write('It seems like your money is not enough to buy this cute little cow.'), nl.
 buy_cow_food :- 
     player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
-    (Gold >= 125), addItem(cow_food, 1), reduceGold(125),
-    write('Congratulations! Transaction completed. +1 Cow food in your inventory.'), nl.
+    (Gold >= 1000), addItem(cow, 1), reduceGold(1000),
+    write('Congratulations! Transaction completed. Please raise your cow wisely.'), nl.
 
 /* Buy sheep food */
 buy_sheep_food :- 
     player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
-    (Gold < 170), write('It seems like your money is not enough to buy this item T__T'), nl.
+    (Gold < 1500), write('It seems like your money is not enough to buy this cute little sheep.'), nl.
 buy_sheep_food :- 
     player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
-    (Gold >= 170), addItem(sheep_food, 1), reduceGold(170),
-    write('Congratulations! Transaction completed. +1 Sheep food in your inventory.'), nl.
+    (Gold >= 1500), addItem(sheep, 1), reduceGold(1500),
+    write('Congratulations! Transaction completed. Please raise your sheep wisely.'), nl.
 
 /* Buy Equipment */
 buyEquipment :- inMarket(_),
@@ -271,24 +271,64 @@ buy_shears :-
 sell :- inMarket(_),
     write_ln('Welcome to the market!'),
     write_ln('What do you want to sell?'),
-    write_ln('1. Shovel                         250 gold'),
-    write_ln('2. Hand Fork                      150 gold'),
-    write_ln('3. Watering Can                   300 gold'),
-    write_ln('4. Fish Net                       200 gold'),
-    write_ln('5. Rod                            100 gold'),
-    write_ln('6. Milk Pail                      100 gold'),
-    write_ln('7. Shears                         150 gold'),
-    write_ln('Write the equipment ID!'), read(X),
-        ( X=:=1 -> sell_ ;
-          X=:=2 -> sell_ ;
-          X=:=3 -> sell_ ;
-          X=:=4 -> sell_ ;
-          X=:=5 -> sell_ ;
-          X=:=6 -> sell_ ;
-          X=:=7 -> sell_ ).
+    itemCount(salmon, Sa),
+    write('1. Salmon (1000 gold) -> '), write(Sa), nl,
+    itemCount(tuna, Ta),
+    write('2. Tuna (500 gold) -> '), write(Ta), nl,
+    itemCount(mahi_mahi, Mma),
+    write('3. Mahi-mahi (600 gold) -> '), write(Mma), nl,
+    itemCount(red_snapper, Rsa),
+    write('4. Red Snapper (400 gold) -> '), write(Rsa), nl,
+    itemCount(catfish, Ca),
+    write('5. Catfish (100 gold) -> '), write(Ca), nl,
+    itemCount(milk, Ma),
+    write('6. Milk (200 gold) -> '), write(Ma), nl,
+    itemCount(chicken_egg, Cea),
+    write('7. Chicken Egg (100 gold) -> '), write(Cea), nl,
+    itemCount(wool, Wa),
+    write('8. Wool (500 gold) -> '), write(Wa), nl,
+    itemCount(carrot, Cra),
+    write('9. Carrot (200 gold) -> '), write(Cra), nl,
+    itemCount(sweet_potato, Spa),
+    write('10. Sweet Potato (300 gold) -> '), write(Spa), nl,
+    itemCount(cassava, Csa),
+    write('11. Cassava (250 gold) -> '), write(Csa), nl,
+    itemCount(corn, Crna),
+    write('12. Corn (400 gold) -> '), write(Crna), nl,
+    itemCount(tomato, Tma),
+    write('13. Tomato (300 gold) -> '), write(Tma), nl,
+    itemCount(potato, Pa),
+    write('14. Potato (350 gold) -> '), write(Pa), nl,
+    write('Write the item ID!'), read(X),
+        ( X=:=1 -> sell(salmon) ;
+          X=:=2 -> sell(tuna) ;
+          X=:=3 -> sell(mahi_mahi) ;
+          X=:=4 -> sell(red_snapper) ;
+          X=:=5 -> sell(catfish) ;
+          X=:=6 -> sell(milk) ;
+          X=:=7 -> sell(chicken_egg) ;
+          X=:=8 -> sell(wool) ;
+          X=:=9 -> sell(carrot) ;
+          X=:=10 -> sell(sweet_potato) ;
+          X=:=11 -> sell(cassava) ; 
+          X=:=12 -> sell(corn) ;
+          X=:=13 -> sell(tomato) ;
+          X=:=14 -> sell(potato) ).
 
-sell_ :- 
+/* Sell failed template */
+sell(Item) :- 
     player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold), 
+    itemCount(Item, X), (X=0),
+    write('You dont have this item in your inventory. Sorry....'), nl.
+/* Sell succeed template */
+sell(Item) :-
+    player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold), 
+    itemCount(Item, X), (X>0), item(Item, _, Price, _, _, _),
+    write('How many do you want to sell?'), read(Amount), 
+    ((Amount <= X, drop(Item, Amount), 
+    Earn is Price * Amount, addGold(Earn),
+    write('Transaction completed!'), nl); 
+    (Amount > X, write('Hmm... you dont have that much.. sorry..'), nl)).
 
 /* Exit market */
 exitMarket :- \+inMarket, nl, write_ln('Anda belum berada di market.').
