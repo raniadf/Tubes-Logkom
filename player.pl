@@ -215,3 +215,9 @@ addGold(X) :-
 	retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)), 
 	assertz(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, NewGold)),
 	format('You gain ~d gold. ~n', [X]).
+
+reduceGold(X) :-
+	player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
+    NewGold is Gold - X,
+	retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)), 
+	assertz(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, NewGold)).
