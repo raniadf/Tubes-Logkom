@@ -288,7 +288,7 @@ sell :- inMarket(_),
           X=:=7 -> sell_ ).
 
 sell_ :- 
-    player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold), 
+    player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold).
 
 /* Exit market */
 exitMarket :- \+inMarket, nl, write_ln('Anda belum berada di market.').

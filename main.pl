@@ -4,6 +4,7 @@
 :- include('items.pl').
 :- include('house.pl').
 :- include('ranching.pl').
+:- include('inventory.pl').
 
 
 /* FACTS */
@@ -49,7 +50,7 @@ start:-
     write('You chose '),writeRole(X),write(', Let\'s start farming'),nl.
 
 start :-
-    !, write('Game sudah dimulai, ketik "help." untuk melihat aksi yang bisa dilakukan').
+    !, write('Game has already been started, use \'help\' to show commands').
 
 /* writeRole buat nulis di start dan update role user */
 writeRole(1) :- 
@@ -114,11 +115,11 @@ goalState :-
     player(_,_,_,_,_,_,_,_,_,GOLD),!,
     day(DAY),!,
     DAY =< 365,GOLD >= 20000,
-    write('Selamat anda telah berhasil mengumpulkan 20000 gold!'),nl,
+    write('Congratulations! You have finally collected 20000 golds!'),nl,
     retract(gameStarted).
 
 failState :-
     player(_,_,_,_,_,_,_,_,_,GOLD),!,
     day(DAY),!,
     DAY > 365,GOLD < 20000,
-    write('Anda sudah bekerja keras, namun sayang sekalib belum berhasil melunasi utang Anda'),nl.
+    write('You have worked hard, but in the end result is all that matters.May God bless you in the future with kind people!'),nl.
