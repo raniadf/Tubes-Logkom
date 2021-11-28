@@ -167,7 +167,7 @@ throwAmount(ItemName, ItemQty) :-
     ItemQty =< Qty,
     removeItem(ItemName, ItemQty),
     nl,
-    write('You threw '), write(Qty), write(' '), printItemName(ItemName), write(' away!') nl, !.
+    write('You threw '), write(Qty), write(' '), printItemName(ItemName), write(' away!'), nl, !.
 
 
 /* *** PRINT ITEM *** */
