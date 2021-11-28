@@ -115,6 +115,17 @@ map :-
 	% write('Game belum dimulai! Ketik \'start.\' untuk memulai.');
 	printObjPeta(0, 0).
 
+digTile :- %convert '-' ke '=', ada restriksi tile atasnya harus bukan object.
+	objPeta(X, Y, 'P'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'=')),
+	retract(objPeta(X, Y, 'P')),!.
+
+digTile :-
+	write('Pastikan tiles di atas bisa diakses !').
+
 /* Command Move */
 /* Move ke atas */
 % w :-
@@ -126,7 +137,7 @@ w :-
 	UpperY is Y - 1,
 	(Y > 1, \+objPeta(X,UpperY,'o')), !,
 	asserta(objPeta(X, UpperY, 'P')),
-	retract(objPeta(X, Y, 'P')), steps(Steps), retract(steps(Steps)), Newstep is Steps + 1, asserta(steps(Newstep)),!.
+	retract(objPeta(X, Y, 'P')),!.
 
 w :-
 	write('Ada tembok atau air di atas. Ketik \'map.\' untuk melihat map.').
