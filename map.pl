@@ -191,7 +191,7 @@ isOnRanch(Hasil) :-
     objPeta(X,Y,'P'), objPeta(X,Y,'R'), Hasil = 'true'.
 
 isOnMarket(Hasil) :-
-    objPeta(X,Y,'M'), objPeta(X,Y,'P'), Hasil = 'true'.
+    objPeta(X,Y,'M'), objPeta(X,Y,'P'), Hasil = 'true', assertz(inMarket).
 
 isDigable(Hasil) :-
     +isOnMarket('true'), +isOnRanch('true'), + (objPeta(X,Y,'P'), objPeta(X,Y,'o')), Hasil = 'true'.
