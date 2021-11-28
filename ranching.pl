@@ -113,12 +113,13 @@ sheep :-
         addItem(wool,JUMLAH_WOOl)
     ). 
 
-/* ini belom selesai*/
+/* ini belom selesai nanti tambahin di addExpRanching */
 reduceRanchTime :-
-    expRanch(Level,_,_),!,
+    player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),!,
     (
-        Level =:= 5 -> telur(X,TIME),NEW_TIME is TIME -1, retract(telur(X,TIME)), asserta(telur(X,NEW_TIME));
-        Level =:= 10 -> wool(X,TIME),NEW_TIME is TIME -1, retract(wool(X,TIME)), asserta(wool(X,NEW_TIME)),
-        susu(X,TIME),NEW_TIME is TIME -1, retract(susu(X,TIME)), asserta(susu(X,NEW_TIME));
+        LvlRanch =:= 3 -> telur(X,TIME),NEW_TIME is TIME-1, retract(telur(X,TIME)), asserta(telur(X,NEW_TIME));
+        LvlRanch =:= 5 -> wool(X,TIME_WOOL),NEW_TIME_WOOL is TIME_WOOL-1, retract(wool(X,TIME_WOOL)), asserta(wool(X,NEW_TIME_WOOL)),
+        susu(X,TIME_SUSU),NEW_TIME_SUSU is TIME_SUSU-1, retract(susu(X,TIME_SUSU)), asserta(susu(X,NEW_TIME_SUSU));
+        LvlRanch =:= 7 -> susu(X,TIME_SUSU),NEW_TIME_SUSU is TIME_SUSU-1, retract(susu(X,TIME_SUSU)), asserta(susu(X,NEW_TIME_SUSU));
         !
     ).

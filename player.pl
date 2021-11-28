@@ -76,6 +76,7 @@ levelUpRanching :-
 	retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
 	NewLvlRanch is LvlRanch + 1,
 	assertz(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, NewLvlRanch, ExpRanch, Exp, Gold)),
+	reduceRanchTime,
     write('You\'re getting better and better at ranching. Your ranching level has just leveled up!'), nl.
 
 /* Add Exp */
