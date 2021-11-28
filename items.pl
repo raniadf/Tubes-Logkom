@@ -30,11 +30,11 @@ item(tomato_seed, 0, 130, 0, 3, 0, 0).
 item(potato_seed, 0, 150, 0, 4, 0, 0).
 /* Equipment */
 item(shovel_1, 0, 250, 1, 3, 0, 0).
-item(shovel_2, 0, 250, 2, 3, 0, 0).
+item(shovel_2, 0, 500, 2, 10, 0, 0).
 item(hand_fork_1, 0, 150, 1, 1, 0, 0).
-item(hand_fork_2, 0, 150, 2, 1, 0, 0).
+item(hand_fork_2, 0, 300, 2, 5, 0, 0).
 item(watering_can_1, 0, 300, 1, 1, 0, 0).
-item(watering_can_2, 0, 300, 2, 1, 0, 0).
+item(watering_can_2, 0, 600, 2, 5, 0, 0).
 
 /** Fishing **/
 /* Fish product */
@@ -49,9 +49,9 @@ item(grade_b_food, 0, 200, 0, 0, 2, 0).
 item(grade_c_food, 0, 100, 0, 0, 1, 0).
 /* Equipment */
 item(fishnet_1, 0, 250, 1, 0, 3, 0).
-item(fishnet_2, 0, 250, 2, 0, 3, 0).
+item(fishnet_2, 0, 500, 2, 0, 10, 0).
 item(rod_1, 0, 100, 1, 0, 1, 0).
-item(rod_2, 0, 100, 2, 0, 1, 0).
+item(rod_2, 0, 200, 2, 0, 5, 0).
 
 /** Farming **/
 /* Farm product */
@@ -64,6 +64,6 @@ item(cow, 0, 1000, 0, 0, 0, 1).
 item(sheep, 0, 1500, 0, 0, 0, 1).
 /* Equipment */
 item(milk_pail_1, 0, 100, 1, 0, 0, 1).
-item(milk_pail_2, 0, 100, 2, 0, 0, 1).
+item(milk_pail_2, 0, 200, 2, 0, 0, 5).
 item(shears_1, 0, 150, 1, 0, 0, 1).
-item(shears_2, 0, 150, 2, 0, 0, 1).
+item(shears_2, 0, 300, 2, 0, 0, 5).
