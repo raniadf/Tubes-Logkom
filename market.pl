@@ -1,47 +1,53 @@
 /*** FACTS ***/
 :- include('items.pl').
 :- include('player.pl').
+:- include('map.pl').
 
 :- dynamic(inMarket/0).
+:- dynamic(market/0).
+:- dynamic(buy/0).
+:- dynamic(sell/1).
+:- dynamic(exitMarket/0).
 
 /*** RULES ***/
 
 /* Fail to enter the market */
 market :- \+gameStarted, !, write('Please type "start" first to start the game and enter the marketplace!').
-market :- 
-    /*isi posisi player dan posisi store di elemen peta*/
-    !, write('Please go to the marketplace first!').
+/* market :- isOnMarket(Hasil), \+Hasil = 'true', !, write('Please go to the marketplace first!'). */
 
 /* Entering the market */
 /*assertz(inMarket), --> janlup tambahin ini pi klo dah ada posisi playernya*/
-market :- writeln('What do you want to do?'), 
-        writeln('1. Buy'), 
-        writeln('2.Sell'),
-        read(X), (X =:= 1 -> buy; X =:= 2 -> sell), nl, !.
+/*isOnMarket(Hasil), Hasil = 'true',*/
+market :- objPeta(X,Y,'M'), objPeta(X,Y,'P'), assertz(inMarket),
+        write('What do you want to do?'), nl,
+        write('1. Buy'), nl,
+        write('2. Sell'),nl,
+        write('> '),read(X), (X =:= 1 -> buy; X =:= 2 -> sell), nl, !.
+market :- \+inMarket, !, write('Please go to the marketplace first!').
 
 /* Buy */
-buy :- inMarket(_),
-    writeln('What do you want to buy?'),
-    writeln('1. Items'),
-    writeln('2. Equipment'),
-    read(X), (X =:= 1 -> buyItems; X =:= 2 -> buyEquipment).
+buy :- 
+    write('What do you want to buy?'), nl,
+    write('1. Items'), nl,
+    write('2. Equipment'), nl,
+    write('> '),read(X), (X =:= 1 -> buyItems; X =:= 2 -> buyEquipment).
 
-buyItems :- inMarket(_),
-    writeln('Welcome to the market!'),
-    writeln('Choose an item!'),
-    writeln('1. Carrot Seed                    50 gold'),
-    writeln('2. Sweet Potato Seed              80 gold'),
-    writeln('3. Cassava Seed                   120 gold'),
-    writeln('4. Corn Seed                      140 gold'),
-    writeln('5. Tomato Seed                    130 gold'),
-    writeln('6. Potato Seed                    150 gold'),
-    writeln('7. Grade A Food                   300 gold'),
-    writeln('8. Grade B Food                   200 gold'),
-    writeln('9. Grade C Food                   100 gold'),
-    writeln('10. Chicken                       500 gold'),
-    writeln('11. Cow                           1000 gold'),
-    writeln('12. Sheep                         1500 gold'),
-    writeln('Write the item ID!'), read(X),
+buyItems :- 
+    write('Welcome to the market!'),nl,
+    write('Choose an item!'),nl,
+    write('1. Carrot Seed                    50 gold'),nl,
+    write('2. Sweet Potato Seed              80 gold'),nl,
+    write('3. Cassava Seed                   120 gold'),nl,
+    write('4. Corn Seed                      140 gold'),nl,
+    write('5. Tomato Seed                    130 gold'),nl,
+    write('6. Potato Seed                    150 gold'),nl,
+    write('7. Grade A Food                   300 gold'),nl,
+    write('8. Grade B Food                   200 gold'),nl,
+    write('9. Grade C Food                   100 gold'),nl,
+    write('10. Chicken                       500 gold'),nl,
+    write('11. Cow                           1000 gold'),nl,
+    write('12. Sheep                         1500 gold'),nl,
+    write('Write the item ID!'),nl, write('> '),read(X),
         ( X=:=1 -> buy_carrot_seed ;
           X=:=2 -> buy_sweet_potato_seed ;
           X=:=3 -> buy_cassava_seed ;
@@ -179,17 +185,17 @@ buy_sheep :-
     write('Congratulations! Transaction completed. Please raise your sheep wisely.'), nl.
 
 /* Buy Equipment */
-buyEquipment :- inMarket(_),
-    writeln('Welcome to the market!'),
-    writeln('Choose an equipment!'),
-    writeln('1. Shovel                         250 gold'),
-    writeln('2. Hand Fork                      150 gold'),
-    writeln('3. Watering Can                   300 gold'),
-    writeln('4. Fish Net                       200 gold'),
-    writeln('5. Rod                            100 gold'),
-    writeln('6. Milk Pail                      100 gold'),
-    writeln('7. Shears                         150 gold'),
-    writeln('Write the equipment ID!'), read(X),
+buyEquipment :- 
+    write('Welcome to the market!'),nl,
+    write('Choose an equipment!'),nl,
+    write('1. Shovel                         250 gold'), nl,
+    write('2. Hand Fork                      150 gold'), nl,
+    write('3. Watering Can                   300 gold'), nl,
+    write('4. Fish Net                       200 gold'), nl,
+    write('5. Rod                            100 gold'), nl,
+    write('6. Milk Pail                      100 gold'), nl,
+    write('7. Shears                         150 gold'), nl,
+    write('Write the equipment ID!'), nl, write('> '),read(X),
         ( X=:=1 -> buy_shovel ;
           X=:=2 -> buy_hand_fork ;
           X=:=3 -> buy_watering_can ;
@@ -268,9 +274,9 @@ buy_shears :-
     write('Congratulations! Transaction completed. +1 Shears in your inventory.'), nl.
 
 /* Sell items */
-sell :- inMarket(_),
-    writeln('Welcome to the market!'),
-    writeln('What do you want to sell?'),
+sell :- 
+    write('Welcome to the market!'), nl,
+    write('What do you want to sell?'), nl,
     itemCount(salmon, Sa),
     write('1. Salmon (1000 gold) -> '), write(Sa), nl,
     itemCount(tuna, Ta),
@@ -299,7 +305,7 @@ sell :- inMarket(_),
     write('13. Tomato (300 gold) -> '), write(Tma), nl,
     itemCount(potato, Pa),
     write('14. Potato (350 gold) -> '), write(Pa), nl,
-    write('Write the item ID!'), read(X),
+    write('Write the item ID!'), nl,write('> '),read(X),
         ( X=:=1 -> sell(salmon) ;
           X=:=2 -> sell(tuna) ;
           X=:=3 -> sell(mahi_mahi) ;
@@ -322,11 +328,11 @@ sell(Item) :-
 /* Sell succeed template */
 sell(Item) :- 
     itemCount(Item, X), (X>0), item(Item, _, Price, _, _, _),
-    write('How many do you want to sell?'), read(Amount), drop(Item, Amount),
+    write('How many do you want to sell?'), write('> '),read(Amount), read(Amount), drop(Item, Amount),
     ((Amount < X ; Amount == X), drop(Item, Amount), Earn is Price * Amount, addGold(Earn),
     write('Transaction completed!'), nl) ;
     (Amount > X, write('Hmm... you dont have that much.. sorry..'), nl ).
 
 /* Exit market */
-exitMarket :- \+inMarket, nl, writeln('Anda belum berada di market.').
-exitMarket :- inMarket, nl, writeln('Terima kasih sudah berkunjung ke market! Sampai jumpa kembali!').
+exitMarket :- \+inMarket, nl, write('Anda belum berada di market.'), nl.
+exitMarket :- inMarket, retract(inMarket), nl, write('Terima kasih sudah berkunjung ke market! Sampai jumpa kembali!'), nl.
