@@ -58,19 +58,19 @@ writeRole(1) :-
     baseStat('fisherman',A,B,C,D,E,F,G,H,I),!,
     asserta(player('fisherman',A,B,C,D,E,F,G,H,I)),!,
     initialExp,
-    assertz(gameStarted),!.
+    assertz(gameStarted), createMap, !.
 writeRole(2) :- 
     write('Farmer'),
     baseStat('farmer',A,B,C,D,E,F,G,H,I),!,
     asserta(player('farmer',A,B,C,D,E,F,G,H,I)),!,
     initialExp,
-    assertz(gameStarted),!.
+    assertz(gameStarted),createMap,!.
 writeRole(3) :- 
     write('Rancher'),
     baseStat('rancher',A,B,C,D,E,F,G,H,I),!,
     asserta(player('rancher',A,B,C,D,E,F,G,H,I)),!,
     initialExp,
-    assertz(gameStarted),!.
+    assertz(gameStarted),createMap, !.
 
 /* status */
 help :-
