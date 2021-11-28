@@ -5,12 +5,11 @@
 :- dynamic(expRanch/3).
 :- dynamic(player/10).
 
-/* Job, levelUpFarming, levelUpFishing, levelUpRanching */ /* FarmingTime, FishRarity, RanchingTime */
+/* Job, levelUpFarming, levelUpFishing, levelUpRanching */
 growthRate(farmer, 2, 1, 0).
 growthRate(fisherman, 0, 2, 1).
 growthRate(rancher, 1, 0, 2).
 
-/* (masih ga yakin, yang ngerti perlu/gak pake baseStat boleh kabarin hehe) */
 /* Base Stats di Level 1 */ 
 /* Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold */
 baseStat(farmer, 1, 1, 0, 1, 0, 1, 0, 0, 0).
@@ -218,8 +217,11 @@ addGold(X) :-
 	assertz(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, NewGold)),
 	format('You gain ~d gold. ~n', [X]).
 
+/* Reduce Gold */
+/* Mengurangi gold player */
 reduceGold(X) :-
 	player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
     NewGold is Gold - X,
 	retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)), 
 	assertz(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, NewGold)).
+	format('You lose ~d gold. ~n', [X]).
