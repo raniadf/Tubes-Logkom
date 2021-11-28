@@ -34,6 +34,8 @@ fish :-
 /* tambahin tiap naik level */
 increaseOpportunity :-
     range(MIN,MAX),!,
-    NEW_MAX is MAX + 7,
-    retract(range(MIN,MAX)),
-    asserta(range(MIN,NEW_MAX)).
+    (
+        MAX < 50 -> NEW_MAX is MAX + 7,retract(range(MIN,MAX)),asserta(range(MIN,NEW_MAX));
+       !
+    )
+    .

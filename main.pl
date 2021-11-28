@@ -6,6 +6,7 @@
 :- include('ranching.pl').
 :- include('inventory.pl').
 :- include('map.pl').
+:- include('fishing.pl').
 
 
 /* FACTS */
