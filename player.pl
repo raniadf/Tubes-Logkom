@@ -69,6 +69,7 @@ levelUpFishing :-
 	retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
 	NewLvlFish is LvlFish + 1, 
 	assertz(player(Job, Lvl, LvlFarm, ExpFarm, NewLvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
+	increaseOpportunity,
     write('You\'re getting better and better at fishing. Your fishing level has just leveled up!'), nl.
 levelUpRanching :-
     player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
