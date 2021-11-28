@@ -48,8 +48,8 @@ inventory :-
 /* Mengembalikan list level, quantity, dan name dari item yang ada di inventory */
 makeListItems(ListofLevel, ListofQty, ListofName) :-
     findall(Level, inventory(_, _, _, Level, _, _, _), ListofLevel),
-    findall(Qty, inventory(_, Qty, _, _, _, _, _, _), ListofQty),
-    findall(Name, inventory(Name, _, _, _, _, _, _, _), ListofName), !.
+    findall(Qty, inventory(_, Qty, _, _, _, _, _), ListofQty),
+    findall(Name, inventory(Name, _, _, _, _, _, _), ListofName), !.
 
 /* Menampilkan seluruh item yang ada di inventory */
 displayInventory([], [], []).
@@ -170,7 +170,7 @@ throwAmount(ItemName, ItemQty) :-
     write('You threw '), write(Qty), write(' '), printItemName(ItemName), write(' away!') nl, !.
 
 
-/* *** PRINT ITEMS *** */
+/* *** PRINT ITEM *** */
 printItemName(ItemName) :-
     ItemName == carrot,
     write('Carrot'), !
