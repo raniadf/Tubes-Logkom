@@ -23,13 +23,13 @@ fish :-
     range(MIN,MAX),!,
     random(MIN,MAX,VALUE),
     (
-        between(45,50,VALUE) -> addItem(salmon,1),write('You got salmon!'),nl,write('You gained 50 fishing exp!'),addExpFishing(50);
-        between(36,45,VALUE) -> addItem(tuna,1),write('You got tuna!'),nl,write('You gained 40 fishing exp!'),addExpFishing(40);
-        between(26,35,VALUE) -> addItem(mahi_mahi,1),write('You got mahi-mahi!'),nl,write('You gained 30 fishing exp!'),addExpFishing(30);
-        between(16,25,VALUE) -> addItem(red_snapper,1),write('You got red_snapper!'),nl,write('You gained 20 fishing exp!'),addExpFishing(20);
-        between(6,15,VALUE) -> addItem(catfish,1),write('You got catfish!'),nl,write('You gained 10 fishing exp!'),addExpFishing(10);
-        write('You didn\'t get anything! '),nl,write('You gained 5 fishing exp!'),addExpFishing(5)
-    ).
+        between(45,50,VALUE) -> addItem(salmon,1),write('You got salmon!'),nl,addExpFishing(50);
+        between(36,45,VALUE) -> addItem(tuna,1),write('You got tuna!'),nl,addExpFishing(40);
+        between(26,35,VALUE) -> addItem(mahi_mahi,1),write('You got mahi-mahi!'),nl,addExpFishing(30);
+        between(16,25,VALUE) -> addItem(red_snapper,1),write('You got red_snapper!'),nl,addExpFishing(20);
+        between(6,15,VALUE) -> addItem(catfish,1),write('You got catfish!'),nl,addExpFishing(10);
+        write('You didn\'t get anything! '),nl,addExpFishing(5)
+    ),addDay,!.
 
 /* tambahin tiap naik level */
 increaseOpportunity :-

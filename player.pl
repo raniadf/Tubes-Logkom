@@ -215,7 +215,10 @@ addGold(X) :-
     NewGold is Gold + X,
 	retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)), 
 	assertz(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, NewGold)),
-	format('You gain ~d gold. ~n', [X]).
+	(
+		\+ goalState -> format('You gain ~d gold. ~n', [X]);
+		!
+	).
 
 /* Reduce Gold */
 /* Mengurangi gold player */

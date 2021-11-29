@@ -15,7 +15,7 @@
 :- dynamic(day/1). 
 :- dynamic(gameStarted/0).
 
-day(1).
+day(360).
 
 
 
@@ -113,6 +113,17 @@ help :-
     write('%    6. d         -> bergerak ke kanan                                         %'),nl,
     write('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'),nl.
 
+
+addDay :-
+    day(DAY),!,
+    NEW_DAY is DAY + 1,
+    retract(day(DAY)),
+    asserta(day(NEW_DAY)),
+    (
+        \+ failState -> addHasil;
+        !
+    ).
+
 goalState :-
     player(_,_,_,_,_,_,_,_,_,GOLD),!,
     day(DAY),!,
@@ -124,4 +135,4 @@ failState :-
     player(_,_,_,_,_,_,_,_,_,GOLD),!,
     day(DAY),!,
     DAY > 365,GOLD < 20000,
-    write('You have worked hard, but in the end result is all that matters.May God bless you in the future with kind people!'),nl.
+    write('You have worked hard, but in the end result is all that matters.May God bless you in the future with kind people!'),retract(gameStarted),nl.
