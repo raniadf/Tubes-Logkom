@@ -40,30 +40,30 @@ addHasil :-
     T is X * Y,
 
     (
-        0 =:= mod(DAY,W) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
+        1 =:= mod(DAY,W) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
         asserta(telur(JUMLAH_BARU_TELUR,X)),JUMLAH_BARU_WOOL is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
         asserta(wool(JUMLAH_BARU_WOOL,Y)),JUMLAH_BARU_SUSU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
         asserta(susu(JUMLAH_BARU_SUSU,Z));
 
-        0 =:= mod(DAY,V) -> JUMLAH_BARU_WOOL is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
+        1 =:= mod(DAY,V) -> JUMLAH_BARU_WOOL is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
         asserta(wool(JUMLAH_BARU_WOOL,Y)),JUMLAH_BARU_SUSU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
         asserta(susu(JUMLAH_BARU_SUSU,Z));
 
-        0 =:= mod(DAY,U) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
+        1 =:= mod(DAY,U) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
         asserta(telur(JUMLAH_BARU_TELUR,X)),JUMLAH_BARU_SUSU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
         asserta(susu(JUMLAH_BARU_SUSU,Z));
 
-        0 =:= mod(DAY,T) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
+        1 =:= mod(DAY,T) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
         asserta(telur(JUMLAH_BARU_TELUR,X)),JUMLAH_BARU_WOOL is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
         asserta(wool(JUMLAH_BARU_WOOL,Y));
 
-        0 =:= mod(DAY,X) ->JUMLAH_BARU is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
+        1 =:= mod(DAY,X) ->JUMLAH_BARU is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
         asserta(telur(JUMLAH_BARU,X));
 
-        0 =:= mod(DAY,Y) -> JUMLAH_BARU is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
+        1 =:= mod(DAY,Y) -> JUMLAH_BARU is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
         asserta(wool(JUMLAH_BARU,Y));
 
-        0 =:= mod(DAY,Z) -> JUMLAH_BARU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
+        1 =:= mod(DAY,Z) -> JUMLAH_BARU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
         asserta(susu(JUMLAH_BARU,Z));
         !
     ).

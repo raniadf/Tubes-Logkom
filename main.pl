@@ -15,7 +15,7 @@
 :- dynamic(day/1). 
 :- dynamic(gameStarted/0).
 
-day(360).
+day(1).
 
 
 
