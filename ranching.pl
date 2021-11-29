@@ -85,6 +85,9 @@ chicken :-
     ).
 
 cow :-
+    \+ haveMilkCattle,!,
+    write('You have to own a Milk Cattle to milk your cows'),nl.
+cow :-
     susu(JUMLAH_SUSU,X),
     (
         0 =:= JUMLAH_SUSU -> write('Your cow hasn’t produced any milk.'),nl,
@@ -98,6 +101,10 @@ cow :-
         asserta(susu(0,X)),
         addItem(susu,JUMLAH_SUSU)
     ).
+
+sheep :-
+    \+ haveShears,!,
+    write('You have to own shears to get your wool'),nl.
 
 sheep :-
     wool(JUMLAH_WOOl,X),
@@ -123,3 +130,13 @@ reduceRanchTime :-
         LvlRanch =:= 7 -> susu(X,TIME_SUSU),NEW_TIME_SUSU is TIME_SUSU-1, retract(susu(X,TIME_SUSU)), asserta(susu(X,NEW_TIME_SUSU));
         !
     ).
+
+haveShears :-
+    amountItem(shears_1,A),!,
+    amountItem(shears_2,B),!,
+    (A > 0; B > 0).
+    
+haveMilkCattle :-
+    amountItem(milk_pail_1,A),!,
+    amountItem(milk_pail_2,B),!,
+    (A > 0; B > 0).
