@@ -11,11 +11,11 @@ dig :- objPeta(X,Y,'P'), \+isFarmable('true'),
     write('2. Shovel Level 2'), nl,
     write('3. Hand Fork Level 1'), nl,
     write('4. Hand Fork Level 2'), nl,
-    write('> '), read(X),
-    (X==1 -> digShovel1 ;
-    X==2 -> digShovel2 ;
-    X==3 -> digHandFork1 ;
-    X==4 -> digHandFork2 ), !.
+    write('> '), read(Z),
+    (Z==1 -> digShovel1 ;
+    Z==2 -> digShovel2 ;
+    Z==3 -> digHandFork1 ;
+    Z==4 -> digHandFork2 ), !.
 
 /** perdig2an ini harus nyetak - jadi = */
 /* dig Once -> add day 1x*/
@@ -44,19 +44,27 @@ digHandFork2 :- amountItem(hand_fork_2, Amount), Amount > 0,
 
 plant :- objPeta(X,Y,'P'), isFarmable('true'), \+isPlant(X,Y, _, _), 
     write('What do you want to plant?'), nl,
-    (\+amountItem(carrot_seed,0) -> write('- Carrot (Type Cr)'), nl),
-    (\+amountItem(sweet_potato_seed,0) -> write('- Sweet Potato (Type Sp)'), nl),
-    (\+amountItem(cassava_seed,0) -> write('- Cassava (Type Cs)'), nl),
-    (\+amountItem(corn_seed,0) -> write('- Corn (Type Crn)'), nl),
-    (\+amountItem(tomato_seed,0) -> write('- Tomato (Type Tm)'), nl),
-    (\+amountItem(potato_seed,0) -> write('- Potato (Type Pt)'), nl),
+    write('Seeds you have : '), nl,
+    (amountItem(carrot_seed,Acs), 
+        write('1. Carrot : '), write(Acs), write(' Seeds.'), nl),
+    (amountItem(sweet_potato_seed,Asp), 
+        write('2. Sweet Potato : '), write(Asp), write(' Seeds.'), nl),
+    (amountItem(cassava_seed,Acsv), 
+        write('3. Cassava : '), write(Acsv), write(' Seeds.'), nl),
+    (amountItem(corn_seed,Acr), 
+        write('4. Corn : '), write(Acr), write(' Seeds.'), nl),
+    (amountItem(tomato_seed,At), 
+        write('5. Tomato : '), write(At), write(' Seeds.'), nl),
+    (amountItem(potato_seed,Ap), 
+        write('6. Potato : '), write(Ap), write(' Seeds.'), nl),
+    write('Write the seeds ID!'), nl,
     write('> '), read(Z),
-    (Z==Cr -> plant_carrot ;
-    Z==Sp -> plant_sweet_potato ;
-    Z==Cs -> plant_cassava ;
-    Z==Crn -> plant_corn ;
-    Z==Tm -> plant_tomato ;
-    Z==Pt -> plant_potato ), !.
+    (Z==1 -> plant_carrot ;
+    Z==2 -> plant_sweet_potato ;
+    Z==3 -> plant_cassava ;
+    Z==4 -> plant_corn ;
+    Z==5 -> plant_tomato ;
+    Z==6 -> plant_potato ), !.
 
 /* Tilenya diganti dari = jadi c/sp/cs/cr/t/p */
 /* kalo fungsinya udah bener baru nanti copas */
