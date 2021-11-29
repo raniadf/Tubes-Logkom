@@ -12,9 +12,9 @@ growthRate(rancher, 1, 0, 2).
 
 /* Base Stats di Level 1 */ 
 /* Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold */
-baseStat(farmer, 1, 1, 0, 1, 0, 1, 0, 0, 0).
-baseStat(fisherman, 1, 1, 0, 1, 0, 1, 0, 0, 0).
-baseStat(rancher, 1, 1, 0, 1, 0, 1, 0, 0, 0).
+baseStat(farmer, 1, 1, 0, 1, 0, 1, 0, 0, 1000).
+baseStat(fisherman, 1, 1, 0, 1, 0, 1, 0, 0, 1000).
+baseStat(rancher, 1, 1, 0, 1, 0, 1, 0, 0, 1000).
 
 /* Pas milih class, assert player dengan baseStat dari job-nya */
 /* Di main.pl saat bagian inisialisasi */
