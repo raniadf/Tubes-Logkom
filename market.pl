@@ -212,7 +212,7 @@ buyEquipment :-
         X=:=9 -> buy_milk_pail_1 ;
         X=:=10 -> buy_milk_pail_2 ;
         X=:=11 -> buy_shears_1 ;
-        X=:=12 -> buy_shears_2 ; ).
+        X=:=12 -> buy_shears_2 ;! ).
 
 /* Buy shovel level 1 */
 buy_shovel_1 :- 

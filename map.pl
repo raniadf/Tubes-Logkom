@@ -194,39 +194,39 @@ plantCropP :-
 
 /* Command Move */
 /* Move ke atas */
-% w :-
-%  	startGame(false), !,
-% 	write('Game belum dimulai! Ketik \'start.\' untuk memulai.');
+w :-
+  	\+ gameStarted, !,
+	write('Game belum dimulai! Ketik \'start.\' untuk memulai.').
 
 w :-
 	objPeta(X, Y, 'P'),
 	UpperY is Y - 1,
 	(Y > 1, \+objPeta(X,UpperY,'o')), !,
 	asserta(objPeta(X, UpperY, 'P')),
-	retract(objPeta(X, Y, 'P')),day(Days), retract(day(Days)), Newday is Days + 1, asserta(day(Newday)),!.
+	retract(objPeta(X, Y, 'P')),addDay,!.
 
 w :-
 	write('Ada tembok atau air di atas. Ketik \'map.\' untuk melihat map.').
 
 /* Move ke kiri */
-% a :-
-%  	startGame(false), !,
-% 	write('Game belum dimulai! Ketik \'start.\' untuk memulai.');
+a :-
+  	\+ gameStarted, !,
+ 	write('Game belum dimulai! Ketik \'start.\' untuk memulai.').
 
 a :-
 	objPeta(X, Y, 'P'),
 	WesterX is X - 1,
 	(X > 1, \+objPeta(WesterX,Y,'o')), !,
 	asserta(objPeta(WesterX, Y, 'P')),
-	retract(objPeta(X, Y, 'P')), day(Days), retract(day(Days)), Newday is Days + 1, asserta(day(Newday)),!.
+	retract(objPeta(X, Y, 'P')), addDay,!.
 
 a :-
 	write('Ada tembok atau air di kiri. Ketik \'map.\' untuk melihat map.').
 
 /* Move ke bawah */
-% s :-
-%  	startGame(false), !,
-% 	write('Game belum dimulai! Ketik \'start.\' untuk memulai.');
+s :-
+  	\+gameStarted, !,
+ 	write('Game belum dimulai! Ketik \'start.\' untuk memulai.').
 
 s :- objPeta(X,Y,'P'), NewY is Y + 1, objPeta(X,NewY,'o'), write('Ada air di bawah. Ketik \'map.\' untuk melihat map.').
 s :-
@@ -235,15 +235,15 @@ s :-
 	ukuranPeta(_,Lowest),
 	(Y < Lowest, \+objPeta(X,LowerY,'o')), !,
 	asserta(objPeta(X, LowerY, 'P')),
-	retract(objPeta(X, Y, 'P')), day(Days), retract(day(Days)), Newday is Days + 1, asserta(day(Newday)),!.
+	retract(objPeta(X, Y, 'P')), addDay,!.
 
 s :-
 	write('Ada tembok atau air di bawah. Ketik \'map.\' untuk melihat map.').
 
 /* Move ke kanan */
-% d :-
-%  	startGame(false), !,
-% 	write('Game belum dimulai! Ketik \'start.\' untuk memulai.');
+d :-
+  	\+gameStarted, !,
+ 	write('Game belum dimulai! Ketik \'start.\' untuk memulai.').
 
 d :-
 	objPeta(X, Y, 'P'),
@@ -251,7 +251,7 @@ d :-
 	EasterX is X + 1,
 	(X < Eastest, \+objPeta(EasterX,Y,'o')), !,
 	asserta(objPeta(EasterX, Y, 'P')),
-	retract(objPeta(X, Y, 'P')), day(Days), retract(day(Days)), Newday is Days + 1, asserta(day(Newday)),!.
+	retract(objPeta(X, Y, 'P')), addDay,!.
 
 d :-
 	write('Ada tembok atau air di kanan. Ketik \'map.\' untuk melihat map.').

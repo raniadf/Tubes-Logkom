@@ -1,5 +1,5 @@
 /*** Facts ***/
-dynamic(isPlant/4).
+:- dynamic(isPlant/4).
 
 isPlant(0,0,0,0).
 /*** Rules ***/
