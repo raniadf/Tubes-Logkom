@@ -149,14 +149,13 @@ harvest :- objPeta(X,Y,'P'), isFarmable('true'), day(Day),
     isPlant(X,Y, _, HarvestDay), HarvestDay < Day, 
     write('It\'s not harvest time yet! Please come back at day '), write(HarvestDay), write('.'), !.
 harvest :- objPeta(X,Y,'P'), isFarmable('true'), day(Day),
-    isPlant(X,Y, _, HarvestDay), HarvestDay >= Day,
+    isPlant(X,Y, _, HarvestDay), (HarvestDay >= Day),
     (isPlant(X,Y, carrot, _) -> harvest_carrot ;
     isPlant(X,Y, sweet_potato, _) -> harvest_sweet_potato ;
     isPlant(X,Y, cassava, _) -> harvest_cassava ;
     isPlant(X,Y, corn, _) -> harvest_corn ;
     isPlant(X,Y, tomato, _) -> harvest_tomato ;
-    isPlant(X,Y, potato, _) -> harvest_potato ),
-    retract(isPlant(X,Y, _, _)), !.
+    isPlant(X,Y, potato, _) -> harvest_potato ), !.
 
 harvest_carrot :- addItem(carrot,1), objPeta(X,Y,'P'),
     backToTileFromC, retract(isPlant(X,Y, _, _)),

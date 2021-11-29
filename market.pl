@@ -26,6 +26,7 @@ market :- \+inMarket, objPeta(X,Y,'M'), objPeta(X,Y,'P'), assertz(inMarket),
 market :- \+inMarket, !, write('Please go to the marketplace first!').
 
 /* Buy */
+buy :- \+inMarket, write('Please enter the market first!'), !.
 buy :- inMarket, inventoryCapacity(Max),
     totalInventory(Length), Length + 1 == Max, 
     write('Your inventory is full, please sell or throw an item first before buying another one.'), nl, !.
@@ -349,6 +350,7 @@ buy_shears_2 :-
     write('Congratulations! Transaction completed. +1 Shears Level 2 in your inventory.'), nl.
 
 /* Sell items */
+sell :- \+inMarket, write('Please enter the market first!'), !.
 sell :- 
     write('Welcome to the market!'), nl,
     write('What do you want to sell?'), nl,
