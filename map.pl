@@ -191,6 +191,72 @@ plantCropP :-
 plantCropP :-
 	write('Pastikan tiles di atas bisa diakses !').
 
+backToTileFromC :-
+	objPeta(X, Y, 'c'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromC:-
+	write('Pastikan Tile sudah diplant crop !').
+
+backToTileFromSp :-
+	objPeta(X, Y, 'sp'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromSp:-
+	write('Pastikan Tile sudah diplant crop !').
+
+backToTileFromCs :-
+	objPeta(X, Y, 'cs'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromsCs:-
+	write('Pastikan Tile sudah diplant crop !').
+
+backToTileFromCr :-
+	objPeta(X, Y, 'cr'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromCr:-
+	write('Pastikan Tile sudah diplant crop !').
+
+backToTileFromT :-
+	objPeta(X, Y, 't'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromT:-
+	write('Pastikan Tile sudah diplant crop !').
+
+backToTileFromP :-
+	objPeta(X, Y, 'p'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromP:-
+	write('Pastikan Tile sudah diplant crop !').
+
 
 /* Command Move */
 /* Move ke atas */
