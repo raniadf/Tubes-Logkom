@@ -5,7 +5,8 @@ isPlant(0,0,0,0).
 /*** Rules ***/
 
 /** Dig **/
-dig :- objPeta(X,Y,'P'), isDigable('true'), \+isFarmable('true'),
+dig :- \+isDigable('true'), write('It\'s not a place to farm.. >:('), nl, !.
+dig :- isDigable('true'), \+isFarmable('true'),
     write('Pick your digging tools!'), nl,
     write('1. Shovel Level 1'), nl,
     write('2. Shovel Level 2'), nl,
