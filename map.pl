@@ -271,6 +271,10 @@ w :-
 	asserta(objPeta(X, UpperY, 'P')),
 	retract(objPeta(X, Y, 'P')),addDay,!.
 
+w :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
+
 w :-
 	write('Ada tembok atau air di atas. Ketik \'map.\' untuk melihat map.').
 
@@ -285,6 +289,10 @@ a :-
 	(X > 1, \+objPeta(WesterX,Y,'o')), !,
 	asserta(objPeta(WesterX, Y, 'P')),
 	retract(objPeta(X, Y, 'P')), addDay,!.
+
+a :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
 
 a :-
 	write('Ada tembok atau air di kiri. Ketik \'map.\' untuk melihat map.').
@@ -303,6 +311,10 @@ s :-
 	asserta(objPeta(X, LowerY, 'P')),
 	retract(objPeta(X, Y, 'P')), addDay,!.
 
+s :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
+
 s :-
 	write('Ada tembok atau air di bawah. Ketik \'map.\' untuk melihat map.').
 
@@ -318,6 +330,10 @@ d :-
 	(X < Eastest, \+objPeta(EasterX,Y,'o')), !,
 	asserta(objPeta(EasterX, Y, 'P')),
 	retract(objPeta(X, Y, 'P')), addDay,!.
+
+d :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
 
 d :-
 	write('Ada tembok atau air di kanan. Ketik \'map.\' untuk melihat map.').
