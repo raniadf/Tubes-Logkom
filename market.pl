@@ -37,6 +37,7 @@ buy :-
     write('What do you want to buy?'), nl,
     write('1. Items'), nl,
     write('2. Equipment'), nl,
+    write('1/2?'), nl,
     write('> '),read(X), (X =:= 1 -> buyItems; X =:= 2 -> buyEquipment).
 
 buyItems :- 
