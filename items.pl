@@ -49,8 +49,8 @@ item(fishnet_2, 0, 500, 2, 0, 10, 0).
 item(rod_1, 0, 100, 1, 0, 1, 0).
 item(rod_2, 0, 200, 2, 0, 5, 0).
 
-/** Farming **/
-/* Farm product */
+/** Ranching **/
+/* Ranch product */
 item(chicken_egg, 0, 100, 0, 0, 0, 0).
 item(milk, 0, 0, 200, 0, 0, 0).
 item(wool, 0, 0, 0, 0, 0, 0).
