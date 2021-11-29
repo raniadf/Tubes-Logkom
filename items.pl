@@ -16,7 +16,7 @@
 item(carrot, 0, 200, 0, 0, 0, 0).
 item(sweet_potato, 0, 300, 0, 0, 0, 0).
 item(cassava, 0, 250, 0, 0, 0, 0).
-item(corn, 0, 0, 400, 0, 0, 0).
+item(corn, 0, 400, 0,  0, 0, 0).
 item(tomato, 0, 300, 0, 0, 0, 0).
 item(potato, 0, 350, 0, 0, 0, 0).
 /* Item */
