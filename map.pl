@@ -22,7 +22,7 @@ printObjPeta(X, Y) :-
 	Y =< H+1,
 	write('# '),
 	NextX is X+1,
-	printObjPeta(NextX, Y).
+	printObjPeta(NextX, Y),!.
 
 /* Batas atas */
 printObjPeta(X, Y) :- 
@@ -31,7 +31,7 @@ printObjPeta(X, Y) :-
 	Y =:= 0,
 	write('# '),
 	NextX is X+1,
-	printObjPeta(NextX, Y).
+	printObjPeta(NextX, Y),!.
 
 /* Batas kanan */
 printObjPeta(X, Y) :- 
@@ -40,7 +40,7 @@ printObjPeta(X, Y) :-
 	Y =< H + 1,
 	write('# '), nl,
 	NextY is Y+1,
-	printObjPeta(0, NextY).
+	printObjPeta(0, NextY),!.
 
 /* Batas bawah */				
 printObjPeta(X, Y) :- 
@@ -49,7 +49,7 @@ printObjPeta(X, Y) :-
 	Y =:= H + 1,
 	write('# '),
 	NextX is X+1,
-	printObjPeta(NextX, Y).					
+	printObjPeta(NextX, Y),!.			
 
 /* Objek dalam peta */
 printObjPeta(X, Y) :- 
@@ -59,7 +59,7 @@ printObjPeta(X, Y) :-
 	objPeta(X, Y, Obj), !,
 	format('~w ', [Obj]),
 	NextX is X+1,
-	printObjPeta(NextX, Y).
+	printObjPeta(NextX, Y),!.
 
 /* Tile kosong */
 printObjPeta(X, Y) :- 
@@ -69,7 +69,9 @@ printObjPeta(X, Y) :-
 	(\+ objPeta(X, Y, _)),
 	write('- '),
 	NextX is X+1,
-	printObjPeta(NextX, Y).
+	printObjPeta(NextX, Y),!.
+
+printObjPeta(_,_) :- !.
 
 randomizeLoc(X, Y) :- 	
 	random(1, 10, X1), 
