@@ -191,6 +191,72 @@ plantCropP :-
 plantCropP :-
 	write('Pastikan tiles di atas bisa diakses !').
 
+backToTileFromC :-
+	objPeta(X, Y, 'c'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromC:-
+	write('Pastikan Tile sudah diplant crop !').
+
+backToTileFromSp :-
+	objPeta(X, Y, 'sp'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromSp:-
+	write('Pastikan Tile sudah diplant crop !').
+
+backToTileFromCs :-
+	objPeta(X, Y, 'cs'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromsCs:-
+	write('Pastikan Tile sudah diplant crop !').
+
+backToTileFromCr :-
+	objPeta(X, Y, 'cr'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromCr:-
+	write('Pastikan Tile sudah diplant crop !').
+
+backToTileFromT :-
+	objPeta(X, Y, 't'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromT:-
+	write('Pastikan Tile sudah diplant crop !').
+
+backToTileFromP :-
+	objPeta(X, Y, 'p'),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
+	asserta(objPeta(X,Y,'-')),
+	retract(objPeta(X, Y, 'P')),!.
+
+backToTileFromP:-
+	write('Pastikan Tile sudah diplant crop !').
+
 
 /* Command Move */
 /* Move ke atas */
@@ -204,6 +270,10 @@ w :-
 	(Y > 1, \+objPeta(X,UpperY,'o')), !,
 	asserta(objPeta(X, UpperY, 'P')),
 	retract(objPeta(X, Y, 'P')),addDay,!.
+
+w :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
 
 w :-
 	write('Ada tembok atau air di atas. Ketik \'map.\' untuk melihat map.').
@@ -219,6 +289,10 @@ a :-
 	(X > 1, \+objPeta(WesterX,Y,'o')), !,
 	asserta(objPeta(WesterX, Y, 'P')),
 	retract(objPeta(X, Y, 'P')), addDay,!.
+
+a :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
 
 a :-
 	write('Ada tembok atau air di kiri. Ketik \'map.\' untuk melihat map.').
@@ -237,6 +311,10 @@ s :-
 	asserta(objPeta(X, LowerY, 'P')),
 	retract(objPeta(X, Y, 'P')), addDay,!.
 
+s :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
+
 s :-
 	write('Ada tembok atau air di bawah. Ketik \'map.\' untuk melihat map.').
 
@@ -252,6 +330,10 @@ d :-
 	(X < Eastest, \+objPeta(EasterX,Y,'o')), !,
 	asserta(objPeta(EasterX, Y, 'P')),
 	retract(objPeta(X, Y, 'P')), addDay,!.
+
+d :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
 
 d :-
 	write('Ada tembok atau air di kanan. Ketik \'map.\' untuk melihat map.').
