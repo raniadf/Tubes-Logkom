@@ -1,32 +1,52 @@
 /* Facts */
-dynamic(isDig/2).
 dynamic(isPlant/4).
 dynamic(digLand/0).
 
+isPlant(0,0,0,0).
 /*** Rules ***/
 /*checkLand :- isDigable('true'), assertz(digLand). */
 
 /* Tambahin fungsi apakah bisa digali apa ga */
 /* itemCount(shovel, 1) */ 
-dig :- objPeta(X,Y,'P'), \+isDig(X,Y),
+dig :- objPeta(X,Y,'P'), \+isFarmable('true'),
     write('Pick your digging tools!'), nl,
-    write('- Shovel'), nl,
-    write('- Hand Fork'), nl,
+    write('1. Shovel Level 1'), nl,
+    write('2. Shovel Level 2'), nl,
+    write('3. Hand Fork Level 1'), nl,
+    write('4. Hand Fork Level 2'), nl,
     write('> '), read(X),
-    ((X==1 -> write('Land has been digged!'), addDay) ;
-    (X==2 -> write('Land has been digged!'), addDay, addDay)), 
+    (X==1 -> digShovel1 ;
+    X==2 -> digShovel2 ;
+    X==3 -> digHandFork1 ;
+    X==4 -> digHandFork2 ), 
     digTile, !.
 
 /** perdig2an ini harus nyetak - jadi = */
 /* dig Once -> add day 1x*/
-digShovel :- \+isDig(X,Y), objPeta(X,Y,'P'), 
+digShovel1 :- amountItem(shovel_1, Amount), Amount == 0, 
+    write('Please buy this item first!'), !.
+digShovel1 :- amountItem(shovel_1, Amount), Amount > 0, addDay, 
+    write('Land has been digged!'), !.
+
+digShovel2 :- amountItem(shovel_2, Amount), Amount == 0, 
+    write('Please buy this item first!'), !.
+digShovel2 :- amountItem(shovel_2, Amount), Amount > 0,
     write('Land has been digged!'), !.
 
 /* dig Twice -> add day 2x */
-digHandFork :- \+isDig(X,Y), objPeta(X,Y,'P'),
+digHandFork1 :- amountItem(hand_fork_1, Amount), Amount == 0, 
+    write('Please buy this item first!'), !.
+digHandFork1 :- amountItem(hand_fork_1, Amount), Amount > 0,
+    addDay, addDay, addDay,
     write('Land has been digged!'), !.
 
-plant :- objPeta(X,Y,'P'), isDig(X,Y), \+isPlant(X,Y, _, _), 
+digHandFork2 :- amountItem(hand_fork_2, Amount), Amount == 0, 
+    write('Please buy this item first!'), !.
+digHandFork2 :- amountItem(hand_fork_2, Amount), Amount > 0,
+    addDay, addDay,
+    write('Land has been digged!'), !.
+
+plant :- objPeta(X,Y,'P'), isFarmable('true'), \+isPlant(X,Y, _, _), 
     write('What do you want to plant?'), nl,
     (\+amountItem(carrot_seed,0) -> write('- Carrot (Type Cr)'), nl),
     (\+amountItem(sweet_potato_seed,0) -> write('- Sweet Potato (Type Sp)'), nl),
@@ -76,14 +96,14 @@ plant_carrot :- objPeta(X,Y,'P'), plantCropC,
     LvlFarm >= 10 -> HarvestDay is Day + 2, assertz(isPlant(X,Y,'carrot', HarvestDay))),
     write('You planted a carrot seed'), nl, !.
 
-harvest :- objPeta(X,Y,'P'), \+isDig(X,Y), \+isPlant(X,Y, _, _),
+harvest :- objPeta(X,Y,'P'), \+isFarmable('true'), \+isPlant(X,Y, _, _),
     write('No plants and not a dig site....... hmm...'), nl, !.
-harvest :- objPeta(X,Y,'P'), isDig(X,Y), \+isPlant(X,Y, _, _),
+harvest :- objPeta(X,Y,'P'), isFarmable('true'), \+isPlant(X,Y, _, _),
     write('Please plant something first!'), nl, !.
-harvest :- objPeta(X,Y,'P'), isDig(X,Y), day(Day),
+harvest :- objPeta(X,Y,'P'), isFarmable('true'), day(Day),
     isPlant(X,Y, _, HarvestDay), HarvestDay < Day, !.
 /* tilenya diganti dari huruf jadi - */
-harvest :- objPeta(X,Y,'P'), isDig(X,Y), day(Day),
+harvest :- objPeta(X,Y,'P'), isFarmable('true'), day(Day),
     isPlant(X,Y, _, HarvestDay), HarvestDay >= Day,
     (isPlant(X,Y, carrot, _) -> harvest_carrot ;
     isPlant(X,Y, sweet_potato, _) -> harvest_sweet_potato ;
