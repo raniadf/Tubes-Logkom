@@ -83,8 +83,6 @@ printItem(Item) :-
     Item == shovel_2 -> write('Shovel');
     Item == hand_fork_1 -> write('Hand Fork');
     Item == hand_fork_2 -> write('Hand Fork');
-    Item == watering_can_1 -> write('Watering Can');
-    Item == watering_can_2 -> write('Watering Can');
     Item == salmon -> write('Salmon');
     Item == tuna -> write('Tuna');
     Item == mahi_mahi -> write('Mahi-Mahi');
