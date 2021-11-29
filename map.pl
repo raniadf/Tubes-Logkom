@@ -221,7 +221,7 @@ backToTileFromCs :-
 	asserta(objPeta(X,Y,'-')),
 	retract(objPeta(X, Y, 'P')),!.
 
-backToTileFromsCs:-
+backToTileFromCs:-
 	write('Pastikan Tile sudah diplant crop !').
 
 backToTileFromCr :-
@@ -263,17 +263,15 @@ backToTileFromP:-
 w :-
   	\+ gameStarted, !,
 	write('Game belum dimulai! Ketik \'start.\' untuk memulai.').
-
+w :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
 w :-
 	objPeta(X, Y, 'P'),
 	UpperY is Y - 1,
 	(Y > 1, \+objPeta(X,UpperY,'o')), !,
 	asserta(objPeta(X, UpperY, 'P')),
 	retract(objPeta(X, Y, 'P')),addDay,!.
-
-w :- 
-	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
-	write('Type exitMarket'), !.
 
 w :-
 	write('Ada tembok atau air di atas. Ketik \'map.\' untuk melihat map.').
@@ -282,17 +280,15 @@ w :-
 a :-
   	\+ gameStarted, !,
  	write('Game belum dimulai! Ketik \'start.\' untuk memulai.').
-
+a :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
 a :-
 	objPeta(X, Y, 'P'),
 	WesterX is X - 1,
 	(X > 1, \+objPeta(WesterX,Y,'o')), !,
 	asserta(objPeta(WesterX, Y, 'P')),
 	retract(objPeta(X, Y, 'P')), addDay,!.
-
-a :- 
-	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
-	write('Type exitMarket'), !.
 
 a :-
 	write('Ada tembok atau air di kiri. Ketik \'map.\' untuk melihat map.').
@@ -301,6 +297,9 @@ a :-
 s :-
   	\+gameStarted, !,
  	write('Game belum dimulai! Ketik \'start.\' untuk memulai.').
+s :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
 
 s :- objPeta(X,Y,'P'), NewY is Y + 1, objPeta(X,NewY,'o'), write('Ada air di bawah. Ketik \'map.\' untuk melihat map.').
 s :-
@@ -311,10 +310,6 @@ s :-
 	asserta(objPeta(X, LowerY, 'P')),
 	retract(objPeta(X, Y, 'P')), addDay,!.
 
-s :- 
-	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
-	write('Type exitMarket'), !.
-
 s :-
 	write('Ada tembok atau air di bawah. Ketik \'map.\' untuk melihat map.').
 
@@ -323,6 +318,10 @@ d :-
   	\+gameStarted, !,
  	write('Game belum dimulai! Ketik \'start.\' untuk memulai.').
 
+d :- 
+	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
+	write('Type exitMarket'), !.
+
 d :-
 	objPeta(X, Y, 'P'),
 	ukuranPeta(Eastest,_),
@@ -330,10 +329,6 @@ d :-
 	(X < Eastest, \+objPeta(EasterX,Y,'o')), !,
 	asserta(objPeta(EasterX, Y, 'P')),
 	retract(objPeta(X, Y, 'P')), addDay,!.
-
-d :- 
-	objPeta(X, Y, 'P'), objPeta(X,Y, 'M'), inMarket, write('Please exit the market first!'), nl,
-	write('Type exitMarket'), !.
 
 d :-
 	write('Ada tembok atau air di kanan. Ketik \'map.\' untuk melihat map.').
@@ -356,7 +351,7 @@ isOnMarket(Hasil) :-
     objPeta(X,Y,'M'), objPeta(X,Y,'P'), Hasil = 'true', assertz(inMarket).
 
 isDigable(Hasil) :-
-    +isOnMarket('true'), +isOnRanch('true'), + (objPeta(X,Y,'P'), objPeta(X,Y,'o')), Hasil = 'true'.
+    \+isOnMarket('true'), \+isOnRanch('true'), \+ (objPeta(X,Y,'P'), objPeta(X,Y,'o')), Hasil = 'true'.
 
 isFarmable(Hasil) :-
     objPeta(X,Y,'P'), objPeta(X,Y,'='), Hasil = 'true'.

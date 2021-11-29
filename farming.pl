@@ -5,7 +5,7 @@ isPlant(0,0,0,0).
 /*** Rules ***/
 
 /* itemCount(shovel, 1) */ 
-dig :- objPeta(X,Y,'P'), \+isFarmable('true'),
+dig :- objPeta(X,Y,'P'), isDigable('true'), \+isFarmable('true'),
     write('Pick your digging tools!'), nl,
     write('1. Shovel Level 1'), nl,
     write('2. Shovel Level 2'), nl,
@@ -66,8 +66,6 @@ plant :- objPeta(X,Y,'P'), isFarmable('true'), \+isPlant(X,Y, _, _),
     Z==5 -> plant_tomato ;
     Z==6 -> plant_potato ), !.
 
-/* Tilenya diganti dari = jadi c/sp/cs/cr/t/p */
-/* kalo fungsinya udah bener baru nanti copas */
 /* addExp(X) :
     X = 100 carrot
     X = 150 sweet potato
@@ -154,7 +152,6 @@ harvest :- objPeta(X,Y,'P'), isFarmable('true'), \+isPlant(X,Y, _, _),
 harvest :- objPeta(X,Y,'P'), isFarmable('true'), day(Day),
     isPlant(X,Y, _, HarvestDay), HarvestDay < Day, 
     write('It\'s not harvest time yet! Please come back at day '), write(HarvestDay), write('.'), !.
-/* tilenya diganti dari huruf jadi - */
 harvest :- objPeta(X,Y,'P'), isFarmable('true'), day(Day),
     isPlant(X,Y, _, HarvestDay), HarvestDay >= Day,
     (isPlant(X,Y, carrot, _) -> harvest_carrot ;
@@ -166,16 +163,21 @@ harvest :- objPeta(X,Y,'P'), isFarmable('true'), day(Day),
     retract(isPlant(X,Y, _, _)),
     levelUpFarming, !.
 
-/* Kalo udh bisa nanti tinggal copas */
-harvest_carrot :- addItem(carrot,1),
+harvest_carrot :- addItem(carrot,1), objPeta(X,Y,'P'),
+    backToTileFromC, retract(isPlant(X,Y, _, _)),
     write('You harvested carrot.'), nl, !.
-harvest_sweet_potato :- addItem(sweet_potato,1),
+harvest_sweet_potato :- addItem(sweet_potato,1), objPeta(X,Y,'P'),
+    backToTileFromSp, retract(isPlant(X,Y, _, _)),
     write('You harvested sweet potato.'), nl, !.
-harvest_cassava :- addItem(cassava,1),
+harvest_cassava :- addItem(cassava,1), objPeta(X,Y,'P'),
+    backToTileFromCs, retract(isPlant(X,Y, _, _)),
     write('You harvested cassava.'), nl, !.
-harvest_corn :- addItem(corn,1),
+harvest_corn :- addItem(corn,1), objPeta(X,Y,'P'),
+    backToTileFromCr, retract(isPlant(X,Y, _, _)),
     write('You harvested corn.'), nl, !.
-harvest_tomato :- addItem(tomato,1),
+harvest_tomato :- addItem(tomato,1),objPeta(X,Y,'P'),
+    backToTileFromT, retract(isPlant(X,Y, _, _)),
     write('You harvested tomato.'), nl, !.
-harvest_potato :- addItem(potato,1),
+harvest_potato :- addItem(potato,1),objPeta(X,Y,'P'),
+    backToTileFromP, retract(isPlant(X,Y, _, _)),
     write('You harvested potato.'), nl, !.
