@@ -4,10 +4,6 @@
 :- dynamic(susu/2).
 :- dynamic(wool/2).
 
-animal(ayam,3).
-animal(sapi,2).
-animal(domba,3).
-
 /* barang(jumlah,waktu yang diperlukan) */
 telur(0,2).
 susu(0,5).
@@ -22,13 +18,21 @@ ranching :-
    \+ isOnRanch('true'),!,
    write('You have to go to the ranch first'),nl.
 
+
 ranching :-
     isOnRanch('true'),!,
     /* cocokin posisi player sama ranch */
-    write('Selamat datang di ranch! anda memiliki:'),nl,
-    forall(animal(Y,X), format('- ~d ~w ~n',[X,Y])).
+    (
+        \+ haveAnimal -> write('You don\'t have any animals in your ranch'),nl;
+        write('Welcome to the ranch you have: '),nl,
+        writeAnimal(chicken),!,
+        writeAnimal(cow),!,
+        writeAnimal(sheep),!
+    ).
 
 /* menambahkan hasil ternak setiap day tertentu */
+addHasil :-
+    \+ haveAnimal,!.
 addHasil :-
     day(DAY),!,
     telur(JUMLAH_TELUR,X),
@@ -40,31 +44,19 @@ addHasil :-
     T is X * Y,
 
     (
-        1 =:= mod(DAY,W) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
-        asserta(telur(JUMLAH_BARU_TELUR,X)),JUMLAH_BARU_WOOL is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
-        asserta(wool(JUMLAH_BARU_WOOL,Y)),JUMLAH_BARU_SUSU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
-        asserta(susu(JUMLAH_BARU_SUSU,Z));
+        1 =:= mod(DAY,W) -> addEgg,addMilk,addWool;
 
-        1 =:= mod(DAY,V) -> JUMLAH_BARU_WOOL is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
-        asserta(wool(JUMLAH_BARU_WOOL,Y)),JUMLAH_BARU_SUSU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
-        asserta(susu(JUMLAH_BARU_SUSU,Z));
+        1 =:= mod(DAY,V) -> addWool,addMilk;
 
-        1 =:= mod(DAY,U) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
-        asserta(telur(JUMLAH_BARU_TELUR,X)),JUMLAH_BARU_SUSU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
-        asserta(susu(JUMLAH_BARU_SUSU,Z));
+        1 =:= mod(DAY,U) -> addEgg,addMilk;
 
-        1 =:= mod(DAY,T) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
-        asserta(telur(JUMLAH_BARU_TELUR,X)),JUMLAH_BARU_WOOL is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
-        asserta(wool(JUMLAH_BARU_WOOL,Y));
+        1 =:= mod(DAY,T) -> addEgg,addWool;
 
-        1 =:= mod(DAY,X) ->JUMLAH_BARU is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
-        asserta(telur(JUMLAH_BARU,X));
+        1 =:= mod(DAY,X) ->addEgg;
 
-        1 =:= mod(DAY,Y) -> JUMLAH_BARU is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
-        asserta(wool(JUMLAH_BARU,Y));
+        1 =:= mod(DAY,Y) -> addWool;
 
-        1 =:= mod(DAY,Z) -> JUMLAH_BARU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
-        asserta(susu(JUMLAH_BARU,Z));
+        1 =:= mod(DAY,Z) -> addMilk;
         !
     ).
 
@@ -140,3 +132,38 @@ haveMilkCattle :-
     amountItem(milk_pail_1,A),!,
     amountItem(milk_pail_2,B),!,
     (A > 0; B > 0).
+
+haveAnimal :-
+    amountItem(chicken,A),!,
+    amountItem(sheep,B),!,
+    amountItem(cow,C),!,
+    (A>0;B>0;C>0).
+
+writeAnimal(Animal) :-
+    amountItem(Animal,Q),!,
+    (
+        Q > 0 -> format('- ~d ~w ~n',[Q,Animal]);
+        !
+    ).
+
+
+    wool(JUMLAH_WOOl,Y),
+    susu(JUMLAH_SUSU,Z),
+addMilk :-
+    susu(JUMLAH_SUSU,Z),
+    amountItem(cow,A),!,
+    DIF is 1 * A,
+    JUMLAH_BARU_SUSU is JUMLAH_SUSU+ DIF,retract(susu(JUMLAH_SUSU,Z)),
+    asserta(susu(JUMLAH_BARU_SUSU,Z)).
+addWool :-
+    wool(JUMLAH_WOOl,Y),
+    amountItem(sheep,A),!,
+    DIF is 1 * A,
+    JUMLAH_BARU_WOOL is JUMLAH_WOOl + DIF,retract(wool(JUMLAH_WOOl,Y)),
+    asserta(wool(JUMLAH_BARU_WOOL,Y)).
+addEgg :-
+    telur(JUMLAH_TELUR,X),
+    amountItem(chicken,A),
+    DIF is 1 * A,
+    JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
+    asserta(telur(JUMLAH_BARU_TELUR,X)).
