@@ -19,6 +19,10 @@ fish :-
     write('You have to be near a water tile to fish!'),nl.
 
 fish :-
+    \+ haveFishingRod,!,
+    write('You have own a fishing rod to fish'),nl.
+
+fish :-
     isNearWater('true'),!,
     range(MIN,MAX),!,
     random(MIN,MAX,VALUE),
@@ -39,3 +43,12 @@ increaseOpportunity :-
        !
     )
     .
+
+haveFishingRod :-
+    amountItem(fishnet_1,A),!,
+    amountItem(fishnet_2,B),!,
+    amountItem(rod_1,C),
+    amountItem(rod_2,D),
+    (
+        A >0;B >0;C>0;D>0
+    ).
