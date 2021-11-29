@@ -156,8 +156,7 @@ harvest :- objPeta(X,Y,'P'), isFarmable('true'), day(Day),
     isPlant(X,Y, corn, _) -> harvest_corn ;
     isPlant(X,Y, tomato, _) -> harvest_tomato ;
     isPlant(X,Y, potato, _) -> harvest_potato ),
-    retract(isPlant(X,Y, _, _)),
-    levelUpFarming, !.
+    retract(isPlant(X,Y, _, _)), !.
 
 harvest_carrot :- addItem(carrot,1), objPeta(X,Y,'P'),
     backToTileFromC, retract(isPlant(X,Y, _, _)),
