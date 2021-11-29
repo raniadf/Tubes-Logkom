@@ -126,6 +126,37 @@ digTile :- %convert '-' ke '=', ada restriksi tile atasnya harus bukan object.
 digTile :-
 	write('Pastikan tiles di atas bisa diakses !').
 
+plantCropC :-
+	objPeta(X, Y, '='),
+	asserta(objPeta(X,Y,'c')),
+	retract(objPeta(X, Y, '=')),!.
+
+plantCropSp :-
+	objPeta(X, Y, '='),
+	asserta(objPeta(X,Y,'sp')),
+	retract(objPeta(X, Y, '=')),!.
+
+plantCropCs :-
+	objPeta(X, Y, '='),
+	asserta(objPeta(X,Y,'cs')),
+	retract(objPeta(X, Y, '=')),!.
+
+plantCropCr :-
+	objPeta(X, Y, '='),
+	asserta(objPeta(X,Y,'cr')),
+	retract(objPeta(X, Y, '=')),!.
+
+plantCropT :-
+	objPeta(X, Y, '='),
+	asserta(objPeta(X,Y,'t')),
+	retract(objPeta(X, Y, '=')),!.
+
+plantCropP :-
+	objPeta(X, Y, '='),
+	asserta(objPeta(X,Y,'p')),
+	retract(objPeta(X, Y, '=')),!.
+
+
 /* Command Move */
 /* Move ke atas */
 % w :-
@@ -137,7 +168,7 @@ w :-
 	UpperY is Y - 1,
 	(Y > 1, \+objPeta(X,UpperY,'o')), !,
 	asserta(objPeta(X, UpperY, 'P')),
-	retract(objPeta(X, Y, 'P')),!.
+	retract(objPeta(X, Y, 'P')),day(Days), retract(day(Days)), Newday is Days + 1, asserta(day(Newday)),!.
 
 w :-
 	write('Ada tembok atau air di atas. Ketik \'map.\' untuk melihat map.').
@@ -152,7 +183,7 @@ a :-
 	WesterX is X - 1,
 	(X > 1, \+objPeta(WesterX,Y,'o')), !,
 	asserta(objPeta(WesterX, Y, 'P')),
-	retract(objPeta(X, Y, 'P')), steps(Steps), retract(steps(Steps)), Newstep is Steps + 1, asserta(steps(Newstep)),!.
+	retract(objPeta(X, Y, 'P')), day(Days), retract(day(Days)), Newday is Days + 1, asserta(day(Newday)),!.
 
 a :-
 	write('Ada tembok atau air di kiri. Ketik \'map.\' untuk melihat map.').
@@ -169,7 +200,7 @@ s :-
 	ukuranPeta(_,Lowest),
 	(Y < Lowest, \+objPeta(X,LowerY,'o')), !,
 	asserta(objPeta(X, LowerY, 'P')),
-	retract(objPeta(X, Y, 'P')), steps(Steps), retract(steps(Steps)), Newstep is Steps + 1, asserta(steps(Newstep)),!.
+	retract(objPeta(X, Y, 'P')), day(Days), retract(day(Days)), Newday is Days + 1, asserta(day(Newday)),!.
 
 s :-
 	write('Ada tembok atau air di bawah. Ketik \'map.\' untuk melihat map.').
@@ -185,7 +216,7 @@ d :-
 	EasterX is X + 1,
 	(X < Eastest, \+objPeta(EasterX,Y,'o')), !,
 	asserta(objPeta(EasterX, Y, 'P')),
-	retract(objPeta(X, Y, 'P')), steps(Steps), retract(steps(Steps)), Newstep is Steps + 1, asserta(steps(Newstep)),!.
+	retract(objPeta(X, Y, 'P')), day(Days), retract(day(Days)), Newday is Days + 1, asserta(day(Newday)),!.
 
 d :-
 	write('Ada tembok atau air di kanan. Ketik \'map.\' untuk melihat map.').
