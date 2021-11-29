@@ -64,7 +64,7 @@ displayInventory([A|X], [B|Y], [C|Z]) :-
 
 
 /* *** ADD ITEM *** */
-/* Case 1: Belum ada item 'itemName' di Inventory */
+/* Case 1: Belum ada item 'itemName' di inventory */
 addItem(ItemName, Quantity) :-
     inventoryCapacity(Max),
     totalInventory(Length),
@@ -75,7 +75,7 @@ addItem(ItemName, Quantity) :-
     asserta(inventory(ItemName, Qty2, Price, Level, FarmLevel, FishLevel, RanchLevel)),
     write('You got '), write(Quantity), write(' '), printItem(ItemName), write('!'), nl, !.
 
-/* Case 2: Sudah ada item 'itemName' di Inventory */
+/* Case 2: Sudah ada item 'itemName' di inventory */
 addItem(ItemName, Quantity) :-
     inventoryCapacity(Max),
     totalInventory(Length),
@@ -93,7 +93,19 @@ addItem(_, _) :-
     Length = Max,
     write('Your can\'t add item into your inventory. Your inventory is full! Cancelling...'), !, fail.
 
-/* Case 4: Penambahan item melebihi kapasitas inventory */
+/* Case 4: Penambahan item (belum ada di inventory) melebihi kapasitas inventory */
+addItem(ItemName, Quantity) :-
+    inventoryCapacity(Max),
+    totalInventory(Length),
+    Length + Quantity > Max,
+    QtyAvailable is Max - Length,
+    \+ inventory(ItemName, _, _, _, _, _, _),
+    item(ItemName, Qty, Price, Level, FarmLevel, FishLevel, RanchLevel),
+    Qty2 is Qty + QtyAvailable,
+    asserta(inventory(ItemName, Qty2, Price, Level, FarmLevel, FishLevel, RanchLevel)),
+    write('Your inventory is full! Only '), write(QtyAvailable), write(' '), printItem(ItemName), write(' can be added into your inventory!'), !.
+
+/* Case 5: Penambahan item (yang sudah ada di inventory) melebihi kapasitas inventory */
 addItem(ItemName, Quantity) :-
     inventoryCapacity(Max),
     totalInventory(Length),
@@ -113,12 +125,14 @@ dropItems(ItemName, ItemQty) :-
     ItemQty > Qty,
     nl,
     write('You don\'t have enough '), printItem(ItemName), write('... Sorry...'), nl, !.
+
 /* Case 2: Jumlah yang ingin di drop = jumlah quantity */
 dropItems(ItemName, ItemQty) :-
     inventory(ItemName, Qty, _, _, _, _, _),
     Qty2 is Qty - ItemQty,
     Qty2 =:= 0,
     retract(inventory(ItemName, Qty, _, _, _, _, _)), !.
+
 /* Case 3: Jumlah yang ingin di-drop mencukupi */
 dropItems(ItemName, ItemQty) :-
     inventory(ItemName, Qty, _, _, _, _, _),
