@@ -18,12 +18,12 @@ ranching :-
     \+ gameStarted,!,
     write('Mohon mulai game terlebih dahulu dengan input start.'),nl.
 
-%ranching :-
-%   \+ isOnRanch('true'),!,
-%   write('You have to go to the ranch first'),nl.
+ranching :-
+   \+ isOnRanch('true'),!,
+   write('You have to go to the ranch first'),nl.
 
 ranching :-
-    /*isOnRanch('true'),!,*/
+    isOnRanch('true'),!,
     /* cocokin posisi player sama ranch */
     write('Selamat datang di ranch! anda memiliki:'),nl,
     forall(animal(Y,X), format('- ~d ~w ~n',[X,Y])).
@@ -40,30 +40,30 @@ addHasil :-
     T is X * Y,
 
     (
-        1 =:= mod(DAY,W) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
+        0 =:= mod(DAY,W) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
         asserta(telur(JUMLAH_BARU_TELUR,X)),JUMLAH_BARU_WOOL is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
         asserta(wool(JUMLAH_BARU_WOOL,Y)),JUMLAH_BARU_SUSU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
         asserta(susu(JUMLAH_BARU_SUSU,Z));
 
-        1 =:= mod(DAY,V) -> JUMLAH_BARU_WOOL is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
+        0 =:= mod(DAY,V) -> JUMLAH_BARU_WOOL is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
         asserta(wool(JUMLAH_BARU_WOOL,Y)),JUMLAH_BARU_SUSU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
         asserta(susu(JUMLAH_BARU_SUSU,Z));
 
-        1 =:= mod(DAY,U) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
+        0 =:= mod(DAY,U) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
         asserta(telur(JUMLAH_BARU_TELUR,X)),JUMLAH_BARU_SUSU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
         asserta(susu(JUMLAH_BARU_SUSU,Z));
 
-        1 =:= mod(DAY,T) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
+        0 =:= mod(DAY,T) -> JUMLAH_BARU_TELUR is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
         asserta(telur(JUMLAH_BARU_TELUR,X)),JUMLAH_BARU_WOOL is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
         asserta(wool(JUMLAH_BARU_WOOL,Y));
 
-        1 =:= mod(DAY,X) ->JUMLAH_BARU is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
+        0 =:= mod(DAY,X) ->JUMLAH_BARU is JUMLAH_TELUR + 1,retract(telur(JUMLAH_TELUR,X)),
         asserta(telur(JUMLAH_BARU,X));
 
-        1 =:= mod(DAY,Y) -> JUMLAH_BARU is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
+        0 =:= mod(DAY,Y) -> JUMLAH_BARU is JUMLAH_WOOl + 1,retract(wool(JUMLAH_WOOl,Y)),
         asserta(wool(JUMLAH_BARU,Y));
 
-        1 =:= mod(DAY,Z) -> JUMLAH_BARU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
+        0 =:= mod(DAY,Z) -> JUMLAH_BARU is JUMLAH_SUSU+ 1,retract(susu(JUMLAH_SUSU,Z)),
         asserta(susu(JUMLAH_BARU,Z));
         !
     ).
@@ -90,7 +90,7 @@ cow :-
         0 =:= JUMLAH_SUSU -> write('Your cow hasn’t produced any milk.'),nl,
         write('Please check again later.'),nl;
 
-        0 < JUMLAH_SUSU -> format('Sapi anda menghasilkan ~d susu! ~n',[JUMLAH_SUSU]),
+        0 < JUMLAH_SUSU -> format('Your cow produced ~d milk! ~n',[JUMLAH_SUSU]),
         format('You fot ~d milk!~n',[JUMLAH_SUSU]),
         EXP is JUMLAH_SUSU * 5,
         addExpRanching(EXP),
