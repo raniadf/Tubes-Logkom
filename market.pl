@@ -22,7 +22,7 @@ market :- objPeta(X,Y,'M'), objPeta(X,Y,'P'), assertz(inMarket),
         write('What do you want to do?'), nl,
         write('1. Buy'), nl,
         write('2. Sell'),nl,
-        write('> '),read(X), (X =:= 1 -> buy; X =:= 2 -> sell), nl, !.
+        write('> '),read(Z), (Z =:= 1 -> buy; Z =:= 2 -> sell), nl, !.
 market :- \+inMarket, !, write('Please go to the marketplace first!').
 
 /* Buy */
@@ -277,33 +277,33 @@ buy_shears :-
 sell :- 
     write('Welcome to the market!'), nl,
     write('What do you want to sell?'), nl,
-    itemCount(salmon, Sa),
+    amountItem(salmon, Sa),
     write('1. Salmon (1000 gold) -> '), write(Sa), nl,
-    itemCount(tuna, Ta),
+    amountItem(tuna, Ta),
     write('2. Tuna (500 gold) -> '), write(Ta), nl,
-    itemCount(mahi_mahi, Mma),
+    amountItem(mahi_mahi, Mma),
     write('3. Mahi-mahi (600 gold) -> '), write(Mma), nl,
-    itemCount(red_snapper, Rsa),
+    amountItem(red_snapper, Rsa),
     write('4. Red Snapper (400 gold) -> '), write(Rsa), nl,
-    itemCount(catfish, Ca),
+    amountItem(catfish, Ca),
     write('5. Catfish (100 gold) -> '), write(Ca), nl,
-    itemCount(milk, Ma),
+    amountItem(milk, Ma),
     write('6. Milk (200 gold) -> '), write(Ma), nl,
-    itemCount(chicken_egg, Cea),
+    amountItem(chicken_egg, Cea),
     write('7. Chicken Egg (100 gold) -> '), write(Cea), nl,
-    itemCount(wool, Wa),
+    amountItem(wool, Wa),
     write('8. Wool (500 gold) -> '), write(Wa), nl,
-    itemCount(carrot, Cra),
+    amountItem(carrot, Cra),
     write('9. Carrot (200 gold) -> '), write(Cra), nl,
-    itemCount(sweet_potato, Spa),
+    amountItem(sweet_potato, Spa),
     write('10. Sweet Potato (300 gold) -> '), write(Spa), nl,
-    itemCount(cassava, Csa),
+    amountItem(cassava, Csa),
     write('11. Cassava (250 gold) -> '), write(Csa), nl,
-    itemCount(corn, Crna),
+    amountItem(corn, Crna),
     write('12. Corn (400 gold) -> '), write(Crna), nl,
-    itemCount(tomato, Tma),
+    amountItem(tomato, Tma),
     write('13. Tomato (300 gold) -> '), write(Tma), nl,
-    itemCount(potato, Pa),
+    amountItem(potato, Pa),
     write('14. Potato (350 gold) -> '), write(Pa), nl,
     write('Write the item ID!'), nl,write('> '),read(X),
         ( X=:=1 -> sell(salmon) ;
@@ -323,16 +323,17 @@ sell :-
 
 /* Sell failed template */
 sell(Item) :-  
-    itemCount(Item, X), (X=0),
+    amountItem(Item, X), (X==0),
     write('You dont have this item in your inventory. Sorry....'), nl.
 /* Sell succeed template */
 sell(Item) :- 
-    itemCount(Item, X), (X>0), item(Item, _, Price, _, _, _),
-    write('How many do you want to sell?'), write('> '),read(Amount), read(Amount), drop(Item, Amount),
-    ((Amount < X ; Amount == X), drop(Item, Amount), Earn is Price * Amount, addGold(Earn),
+    amountItem(Item, X), (X>0), item(Item, _, Price, _, _, _, _),
+    write('How many do you want to sell?'), write('> '),read(Amount),
+    ((Amount < X ; Amount == X), dropItems(Item, Amount), 
+    Earn is Price * Amount, addGold(Earn),
     write('Transaction completed!'), nl) ;
     (Amount > X, write('Hmm... you dont have that much.. sorry..'), nl ).
 
 /* Exit market */
-exitMarket :- \+inMarket, nl, write('Anda belum berada di market.'), nl.
-exitMarket :- inMarket, retract(inMarket), nl, write('Terima kasih sudah berkunjung ke market! Sampai jumpa kembali!'), nl.
+exitMarket :- \+inMarket, nl, write('You\'re not in the market.'), nl.
+exitMarket :- inMarket, retract(inMarket), nl, write('Thanks for visiting the market! Please come back soon!'), nl.

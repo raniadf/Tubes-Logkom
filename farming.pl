@@ -1,40 +1,37 @@
 /* Facts */
 dynamic(isDig/2).
-dynamic(isDigHandFork/2).
 dynamic(isPlant/4).
 dynamic(digLand/0).
 
 /*** Rules ***/
-checkLand :- isDigable(Hasil), Hasil == 'true', assertz(digLand).
+/*checkLand :- isDigable('true'), assertz(digLand). */
 
 /* Tambahin fungsi apakah bisa digali apa ga */
 /* itemCount(shovel, 1) */ 
-dig :- checkLand, write('Pick your digging tools!'), nl,
+dig :- write('Pick your digging tools!'), nl,
     write('- Shovel'), nl,
-    write('- Hand Fork'), nl.
+    write('- Hand Fork'), nl,
     write('> '), read(X),
     (X=:=1 -> digShovel ;
-    X=:=2 -> digHandFork).
+    X=:=2 -> digHandFork), digTile, !.
 
 /** perdig2an ini harus nyetak - jadi = */
 /* dig Once -> add day 1x*/
-digShovel :- /+isDig(X,Y), objPeta(X,Y,'P'), assertz(isDig(X,Y)), 
+digShovel :- \+isDig(X,Y), objPeta(X,Y,'P'), 
     write('Land has been digged!'), !.
 
 /* dig Twice -> add day 2x */
-digHandFork :- objPeta(X,Y,'P'), 
-    (\+isDig(X,Y), isDigHandFork(X, Y, 1), 
-    retract(isDigHandFork(X,Y,1)), 
-    assertz(isDigHandFork(X, Y, 2)), assertz(isDig(X,Y))), !.
+digHandFork :- \+isDig(X,Y), objPeta(X,Y,'P'),
+    write('Land has been digged!'), !.
 
 plant :- objPeta(X,Y,'P'), isDig(X,Y), \+isPlant(X,Y, _, _), 
     write('What do you want to plant?'), nl,
-    (isItemAvailable(carrot_seed) -> write('- Carrot (Type Cr)'), nl),
-    (isItemAvailable(sweet_potato_seed) -> write('- Sweet Potato (Type Sp)'), nl),
-    (isItemAvailable(cassava_seed) -> write('- Cassava (Type Cs)'), nl),
-    (isItemAvailable(corn_seed) -> write('- Corn (Type Crn)'), nl),
-    (isItemAvailable(tomato_seed) -> write('- Tomato (Type Tm)'), nl),
-    (isItemAvailable(potato_seed) -> write('- Potato (Type Pt)'), nl),
+    (\+amountItem(carrot_seed,0) -> write('- Carrot (Type Cr)'), nl),
+    (\+amountItem(sweet_potato_seed,0) -> write('- Sweet Potato (Type Sp)'), nl),
+    (\+amountItem(cassava_seed,0) -> write('- Cassava (Type Cs)'), nl),
+    (\+amountItem(corn_seed,0) -> write('- Corn (Type Crn)'), nl),
+    (\+amountItem(tomato_seed,0) -> write('- Tomato (Type Tm)'), nl),
+    (\+amountItem(potato_seed,0) -> write('- Potato (Type Pt)'), nl),
     write('> '), read(Z),
     (Z=:='Cr' -> plant_carrot ;
     Z=:='Sp' -> plant_sweet_potato ;
@@ -43,7 +40,6 @@ plant :- objPeta(X,Y,'P'), isDig(X,Y), \+isPlant(X,Y, _, _),
     Z=:='Tm' -> plant_tomato ;
     Z=:='Pt' -> plant_potato ).
 
-/* Inventory seednya kurangin 1 */
 /* Tilenya diganti dari = jadi c/sp/cs/cr/t/p */
 /* kalo fungsinya udah bener baru nanti copas */
 /* addExp(X) :
@@ -73,8 +69,9 @@ plant :- objPeta(X,Y,'P'), isDig(X,Y), \+isPlant(X,Y, _, _),
 plant_carrot :- objPeta(X,Y,'P'), 
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
-    (LvlFarm < 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,carrot, HarvestDay)) ;
-    LvlFarm >= 10 -> HarvestDay is Day + 2, assertz(isPlant(X,Y,carrot, HarvestDay))),
+    dropItems(carrot_seed, 1),
+    (LvlFarm < 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,'carrot', HarvestDay)) ;
+    LvlFarm >= 10 -> HarvestDay is Day + 2, assertz(isPlant(X,Y,'carrot', HarvestDay))),
     write('You planted a carrot seed'), nl, !.
 
 harvest :- objPeta(X,Y,'P'), \+isDig(X,Y), \+isPlant(X,Y, _, _),
@@ -93,8 +90,8 @@ harvest :- objPeta(X,Y,'P'), isDig(X,Y), day(Day),
     isPlant(X,Y, tomato, _) -> harvest_tomato ;
     isPlant(X,Y, potato, _) -> harvest_potato ),
     retract(isPlant(X,Y, _, _)), retract(isDig(X,Y)),
-    levelUpFarming !.
+    levelUpFarming, !.
 
-/* add item ke inventory */
 /* Kalo udh bisa nanti tinggal copas */
-harvest_carrot :- write('You harvested carrot.'), nl, !.
+harvest_carrot :- addItem(carrot,1),
+    write('You harvested carrot.'), nl, !.
