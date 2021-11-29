@@ -8,12 +8,14 @@ dynamic(digLand/0).
 
 /* Tambahin fungsi apakah bisa digali apa ga */
 /* itemCount(shovel, 1) */ 
-dig :- write('Pick your digging tools!'), nl,
+dig :- objPeta(X,Y,'P'), \+isDig(X,Y),
+    write('Pick your digging tools!'), nl,
     write('- Shovel'), nl,
     write('- Hand Fork'), nl,
     write('> '), read(X),
-    (X=:=1 -> digShovel ;
-    X=:=2 -> digHandFork), digTile, !.
+    ((X==1 -> write('Land has been digged!'), addDay) ;
+    (X==2 -> write('Land has been digged!'), addDay, addDay)), 
+    digTile, !.
 
 /** perdig2an ini harus nyetak - jadi = */
 /* dig Once -> add day 1x*/
@@ -33,12 +35,12 @@ plant :- objPeta(X,Y,'P'), isDig(X,Y), \+isPlant(X,Y, _, _),
     (\+amountItem(tomato_seed,0) -> write('- Tomato (Type Tm)'), nl),
     (\+amountItem(potato_seed,0) -> write('- Potato (Type Pt)'), nl),
     write('> '), read(Z),
-    (Z=:='Cr' -> plant_carrot ;
-    Z=:='Sp' -> plant_sweet_potato ;
-    Z=:='Cs' -> plant_cassava ;
-    Z=:='Crn' -> plant_corn ;
-    Z=:='Tm' -> plant_tomato ;
-    Z=:='Pt' -> plant_potato ).
+    (Z==Cr -> plant_carrot ;
+    Z==Sp -> plant_sweet_potato ;
+    Z==Cs -> plant_cassava ;
+    Z==Crn -> plant_corn ;
+    Z==Tm -> plant_tomato ;
+    Z==Pt -> plant_potato ), !.
 
 /* Tilenya diganti dari = jadi c/sp/cs/cr/t/p */
 /* kalo fungsinya udah bener baru nanti copas */
@@ -66,7 +68,7 @@ plant :- objPeta(X,Y,'P'), isDig(X,Y), \+isPlant(X,Y, _, _),
     tomato = 2 hari
     potato = 2 hari
     */
-plant_carrot :- objPeta(X,Y,'P'), 
+plant_carrot :- objPeta(X,Y,'P'), plantCropC,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
     dropItems(carrot_seed, 1),

@@ -328,7 +328,7 @@ sell(Item) :-
 /* Sell succeed template */
 sell(Item) :- 
     amountItem(Item, X), (X>0), item(Item, _, Price, _, _, _, _),
-    write('How many do you want to sell?'), write('> '),read(Amount),
+    write('How many do you want to sell?'), nl, write('> '),read(Amount),
     ((Amount < X ; Amount == X), dropItems(Item, Amount), 
     Earn is Price * Amount, addGold(Earn),
     write('Transaction completed!'), nl) ;
