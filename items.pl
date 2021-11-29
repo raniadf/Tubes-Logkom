@@ -53,7 +53,7 @@ item(rod_2, 0, 200, 2, 0, 5, 0).
 
 /** Farming **/
 /* Farm product */
-item(chicken_egg, 0, 0, 0, 0, 0).
+item(chicken_egg, 0, 0, 0, 0, 0, 0).
 item(milk, 0, 0, 0, 0, 0, 0).
 item(wool, 0, 0, 0, 0, 0, 0).
 /* Item */
