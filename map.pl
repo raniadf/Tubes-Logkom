@@ -128,33 +128,68 @@ digTile :-
 
 plantCropC :-
 	objPeta(X, Y, '='),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
 	asserta(objPeta(X,Y,'c')),
-	retract(objPeta(X, Y, '=')),!.
+	retract(objPeta(X, Y, 'P')),!.
+	
+plantCropC :-
+	write('Pastikan tiles di atas bisa diakses !').
 
 plantCropSp :-
 	objPeta(X, Y, '='),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
 	asserta(objPeta(X,Y,'sp')),
-	retract(objPeta(X, Y, '=')),!.
+	retract(objPeta(X, Y, 'P')),!.
+plantCropSp :-
+	write('Pastikan tiles di atas bisa diakses !').
 
 plantCropCs :-
 	objPeta(X, Y, '='),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
 	asserta(objPeta(X,Y,'cs')),
-	retract(objPeta(X, Y, '=')),!.
+	retract(objPeta(X, Y, 'P')),!.
+
+plantCropCs :-
+	write('Pastikan tiles di atas bisa diakses !').
 
 plantCropCr :-
 	objPeta(X, Y, '='),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
 	asserta(objPeta(X,Y,'cr')),
-	retract(objPeta(X, Y, '=')),!.
+	retract(objPeta(X, Y, 'P')),!.
+
+plantCropCr :-
+	write('Pastikan tiles di atas bisa diakses !').
 
 plantCropT :-
 	objPeta(X, Y, '='),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
 	asserta(objPeta(X,Y,'t')),
-	retract(objPeta(X, Y, '=')),!.
+	retract(objPeta(X, Y, 'P')),!.
+
+plantCropT :-
+	write('Pastikan tiles di atas bisa diakses !').
 
 plantCropP :-
 	objPeta(X, Y, '='),
+	UpperY is Y - 1,
+	(Y > 1, \+objPeta(X,UpperY,'o'),\+objPeta(X,UpperY,'H'),\+objPeta(X,UpperY,'R'),\+objPeta(X,UpperY,'Q'),\+objPeta(X,UpperY,'M') ), !,
+	asserta(objPeta(X, UpperY, 'P')),
 	asserta(objPeta(X,Y,'p')),
-	retract(objPeta(X, Y, '=')),!.
+	retract(objPeta(X, Y, 'P')),!.
+
+plantCropP :-
+	write('Pastikan tiles di atas bisa diakses !').
 
 
 /* Command Move */
