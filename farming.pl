@@ -86,6 +86,9 @@ plant :- objPeta(X,Y,'P'), isFarmable('true'), \+isPlant(X,Y, _, _),
     tomato = 2 hari
     potato = 2 hari
     */
+plant_carrot :- amountItem(carrot_seed, Amount), Amount == 0,
+    write('No seed available T__T'), !.
+
 plant_carrot :- objPeta(X,Y,'P'), plantCropC,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
@@ -94,6 +97,9 @@ plant_carrot :- objPeta(X,Y,'P'), plantCropC,
     (LvlFarm < 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,'carrot', HarvestDay)) ;
     LvlFarm >= 10 -> HarvestDay is Day + 2, assertz(isPlant(X,Y,'carrot', HarvestDay))),
     write('You planted a carrot seed.'), nl, !.
+
+plant_sweet_potato :- amountItem(sweet_potato_seed, Amount), Amount == 0,
+    write('No seed available T__T'), !.
 
 plant_sweet_potato :- objPeta(X,Y,'P'), plantCropSp,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
@@ -104,6 +110,9 @@ plant_sweet_potato :- objPeta(X,Y,'P'), plantCropSp,
     LvlFarm >= 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,'sweet_potato', HarvestDay))),
     write('You planted a sweet potato seed.'), nl, !.
 
+plant_cassava :- amountItem(cassava_seed, Amount), Amount == 0,
+    write('No seed available T__T'), !.
+
 plant_cassava :- objPeta(X,Y,'P'), plantCropCs,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
@@ -112,6 +121,9 @@ plant_cassava :- objPeta(X,Y,'P'), plantCropCs,
     (LvlFarm < 10 -> HarvestDay is Day + 2, assertz(isPlant(X,Y,'cassava', HarvestDay)) ;
     LvlFarm >= 10 -> HarvestDay is Day + 1, assertz(isPlant(X,Y,'cassava', HarvestDay))),
     write('You planted a cassava seed.'), nl, !.
+
+plant_corn :- amountItem(corn_seed, Amount), Amount == 0,
+    write('No seed available T__T'), !.
 
 plant_corn :- objPeta(X,Y,'P'), plantCropCr,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
@@ -122,6 +134,9 @@ plant_corn :- objPeta(X,Y,'P'), plantCropCr,
     LvlFarm >= 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,'corn', HarvestDay))),
     write('You planted a corn seed.'), nl, !.
 
+plant_tomato :- amountItem(tomato_seed, Amount), Amount == 0,
+    write('No seed available T__T'), !.
+
 plant_tomato :- objPeta(X,Y,'P'), plantCropT,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
@@ -130,6 +145,9 @@ plant_tomato :- objPeta(X,Y,'P'), plantCropT,
     (LvlFarm < 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,'tomato', HarvestDay)) ;
     LvlFarm >= 10 -> HarvestDay is Day + 2, assertz(isPlant(X,Y,'tomato', HarvestDay))),
     write('You planted a tomato seed.'), nl, !.
+
+plant_potato :- amountItem(potato_seed, Amount), Amount == 0,
+    write('No seed available T__T'), !.
 
 plant_potato :- objPeta(X,Y,'P'), plantCropP,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
