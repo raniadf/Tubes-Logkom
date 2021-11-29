@@ -188,90 +188,163 @@ buy_sheep :-
 buyEquipment :- 
     write('Welcome to the market!'),nl,
     write('Choose an equipment!'),nl,
-    write('1. Shovel                         250 gold'), nl,
-    write('2. Hand Fork                      150 gold'), nl,
-    write('3. Watering Can                   300 gold'), nl,
-    write('4. Fish Net                       200 gold'), nl,
-    write('5. Rod                            100 gold'), nl,
-    write('6. Milk Pail                      100 gold'), nl,
-    write('7. Shears                         150 gold'), nl,
+    write('1. Shovel Level 1                 250 gold'), nl,
+    write('2. Shovel Level 2                 500 gold'), nl,
+    write('3. Hand Fork Level 1              150 gold'), nl,
+    write('4. Hand Fork Level 2              300 gold'), nl,
+    write('5. Fish Net Level 1               250 gold'), nl,
+    write('6. Fish Net Level 2               500 gold'), nl,
+    write('7. Rod Level 1                    100 gold'), nl,
+    write('8. Rod Level 2                    200 gold'), nl,
+    write('9. Milk Pail Level 1              100 gold'), nl,
+    write('10. Milk Pail Level 2              200 gold'), nl,
+    write('11. Shears Level 1                 150 gold'), nl,
+    write('12. Shears Level 2                 300 gold'), nl,
     write('Write the equipment ID!'), nl, write('> '),read(X),
-        ( X=:=1 -> buy_shovel ;
-          X=:=2 -> buy_hand_fork ;
-          X=:=3 -> buy_watering_can ;
-          X=:=4 -> buy_fishnet ;
-          X=:=5 -> buy_rod ;
-          X=:=6 -> buy_milk_pail ;
-          X=:=7 -> buy_shears ).
+        ( X=:=1 -> buy_shovel_1 ;
+        X=:=2 -> buy_shovel_2 ;
+        X=:=3 -> buy_hand_fork_1 ;
+        X=:=4 -> buy_hand_fork_2 ;
+        X=:=5 -> buy_fishnet_1 ;
+        X=:=6 -> buy_fishnet_2 ;
+        X=:=7 -> buy_rod_1 ;
+        X=:=8 -> buy_rod_2 ;
+        X=:=9 -> buy_milk_pail_1 ;
+        X=:=10 -> buy_milk_pail_2 ;
+        X=:=11 -> buy_shears_1 ;
+        X=:=12 -> buy_shears_2 ; ).
 
-/* Buy shovel */
-buy_shovel :- 
+/* Buy shovel level 1 */
+buy_shovel_1 :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold < 250), write('It seems like your money is not enough to buy this item T__T'), nl.
-buy_shovel :- 
+buy_shovel_1 :- 
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     (LvlFarm < 3), write('You need to upgrade your farming level to level 3 before purchasing this item.'), nl.
-buy_shovel :- 
+buy_shovel_1 :- 
     player(_, _, LvlFarm, _, _, _, _, _, _, Gold),
-    (Gold >= 250), LvlFarm >= 3, addItem(shovel, 1), reduceGold(250),
-    write('Congratulations! Transaction completed. +1 Shovel in your inventory.'), nl.
+    (Gold >= 250), LvlFarm >= 3, addItem(shovel_1, 1), reduceGold(250),
+    write('Congratulations! Transaction completed. +1 Shovel Level 1 in your inventory.'), nl.
 
-/* Buy hand fork */
-buy_hand_fork :- 
+/* Buy shovel level 2 */
+buy_shovel_2 :- 
+    player(_, _, _, _, _, _, _, _, _, Gold),
+    (Gold < 500), write('It seems like your money is not enough to buy this item T__T'), nl.
+buy_shovel_2 :- 
+    player(_, _, LvlFarm, _, _, _, _, _, _, _),
+    (LvlFarm < 10), write('You need to upgrade your farming level to level 10 before purchasing this item.'), nl.
+buy_shovel_2 :- 
+    player(_, _, LvlFarm, _, _, _, _, _, _, Gold),
+    (Gold >= 500), LvlFarm >= 10, addItem(shovel_2, 1), reduceGold(500),
+    write('Congratulations! Transaction completed. +1 Shovel Level 2 in your inventory.'), nl.
+
+/* Buy hand fork level 1 */
+buy_hand_fork_1 :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold < 150), write('It seems like your money is not enough to buy this item T__T'), nl.
-buy_hand_fork :- 
+buy_hand_fork_1 :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold >= 150), addItem(hand_fork, 1), reduceGold(150),
-    write('Congratulations! Transaction completed. +1 Hand fork in your inventory.'), nl.
+    (Gold >= 150), addItem(hand_fork_1, 1), reduceGold(150),
+    write('Congratulations! Transaction completed. +1 Hand fork Level 1 in your inventory.'), nl.
 
-/* Buy watering can */
-buy_watering_can :- 
+/* Buy hand fork level 2 */
+buy_hand_fork_2 :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold < 300), write('It seems like your money is not enough to buy this item T__T'), nl.
-buy_watering_can :- 
-    player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold >= 300), addItem(watering_can, 1), reduceGold(300),
-    write('Congratulations! Transaction completed. +1 Watering can in your inventory.'), nl.
+buy_hand_fork_2 :- 
+    player(_, _, LvlFarm, _, _, _, _, _, _, _),
+    (LvlFarm < 5), write('You need to upgrade your farming level to level 5 before purchasing this item.'), nl.
+buy_hand_fork_2 :- 
+    player(_, _, LvlFarm, _, _, _, _, _, _, Gold),
+    (Gold >= 300), LvlFarm >= 5, addItem(hand_fork_2, 1), reduceGold(300),
+    write('Congratulations! Transaction completed. +1 Hand fork Level 2 in your inventory.'), nl.
 
-/* Buy fish net */
-buy_fishnet :- 
+/* Buy fish net level 1*/
+buy_fishnet_1 :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 200), write('It seems like your money is not enough to buy this item T__T'), nl.
-buy_fishnet :- 
+    (Gold < 250), write('It seems like your money is not enough to buy this item T__T'), nl.
+buy_fishnet_1 :- 
     player(_, _, _, _, LvlFish, _, _, _, _, _),
     (LvlFish < 3), write('You need to upgrade your fishing level to level 3 before purchasing this item.'), nl.
-buy_fishnet :- 
+buy_fishnet_1 :- 
     player(_, _, _, _, LvlFish, _, _, _, _, Gold),
-    (Gold >= 200), LvlFish >= 3, addItem(fishnet, 1), reduceGold(200),
-    write('Congratulations! Transaction completed. +1 Fishnet in your inventory.'), nl.
+    (Gold >= 250), LvlFish >= 3, addItem(fishnet_1, 1), reduceGold(250),
+    write('Congratulations! Transaction completed. +1 Fishnet Level 1 in your inventory.'), nl.
 
-/* Buy rod */
-buy_rod :- 
+/* Buy fish net level 2*/
+buy_fishnet_2 :- 
+    player(_, _, _, _, _, _, _, _, _, Gold),
+    (Gold < 500), write('It seems like your money is not enough to buy this item T__T'), nl.
+buy_fishnet_1 :- 
+    player(_, _, _, _, LvlFish, _, _, _, _, _),
+    (LvlFish < 10), write('You need to upgrade your fishing level to level 10 before purchasing this item.'), nl.
+buy_fishnet_1 :- 
+    player(_, _, _, _, LvlFish, _, _, _, _, Gold),
+    (Gold >= 500), LvlFish >= 10, addItem(fishnet_2, 1), reduceGold(500),
+    write('Congratulations! Transaction completed. +1 Fishnet Level 2 in your inventory.'), nl.
+
+/* Buy rod level 1 */
+buy_rod_1 :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold < 100), write('It seems like your money is not enough to buy this item T__T'), nl.
-buy_rod :- 
+buy_rod_1 :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold >= 100), addItem(rod, 1), reduceGold(100),
-    write('Congratulations! Transaction completed. +1 Rod in your inventory.'), nl.
+    (Gold >= 100), addItem(rod_2, 1), reduceGold(100),
+    write('Congratulations! Transaction completed. +1 Rod Level 1 in your inventory.'), nl.
 
-/* Buy milk pail */
-buy_milk_pail :- 
+/* Buy rod level 2 */
+buy_rod_2 :- 
+    player(_, _, _, _, _, _, _, _, _, Gold),
+    (Gold < 200), write('It seems like your money is not enough to buy this item T__T'), nl.
+buy_rod_2 :- 
+    player(_, _, _, _, LvlFish, _, _, _, _, _),
+    (LvlFish < 5), write('You need to upgrade your fishing level to level 10 before purchasing this item.'), nl.
+buy_rod_2 :- 
+    player(_, _, _, _, LvlFish, _, _, _, _, Gold),
+    (Gold >= 200), LvlFish >= 5, addItem(rod_2, 1), reduceGold(200),
+    write('Congratulations! Transaction completed. +1 Rod Level 2 in your inventory.'), nl.
+
+/* Buy milk pail level 1*/
+buy_milk_pail_1 :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold < 100), write('It seems like your money is not enough to buy this item T__T'), nl.
-buy_milk_pail :- 
+buy_milk_pail_1 :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold >= 100), addItem(milk_pail, 1), reduceGold(100),
-    write('Congratulations! Transaction completed. +1 Milk pail in your inventory.'), nl.
+    (Gold >= 100), addItem(milk_pail_1, 1), reduceGold(100),
+    write('Congratulations! Transaction completed. +1 Milk pail Level 1 in your inventory.'), nl.
 
-/* Buy shears */
-buy_shears :- 
+/* Buy milk pail level 2*/
+buy_milk_pail_2 :- 
+    player(_, _, _, _, _, _, _, _, _, Gold),
+    (Gold < 200), write('It seems like your money is not enough to buy this item T__T'), nl.
+buy_milk_pail_2 :- 
+    player(_, _, _, _, _, _, LvlRanch, _, _, _),
+    (LvlRanch < 5), write('You need to upgrade your ranching level to level 10 before purchasing this item.'), nl.
+buy_milk_pail_2 :- 
+    player(_, _, _, _, _, _, LvlRanch, _, _, Gold),
+    (Gold >= 200), LvlRanch >=5, addItem(milk_pail_2, 1), reduceGold(200),
+    write('Congratulations! Transaction completed. +1 Milk pail Level 2 in your inventory.'), nl.
+
+/* Buy shears level 1*/
+buy_shears_1 :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold < 150), write('It seems like your money is not enough to buy this item T__T'), nl.
-buy_shears :- 
+buy_shears_1 :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold >= 150), addItem(shears, 1), reduceGold(150),
-    write('Congratulations! Transaction completed. +1 Shears in your inventory.'), nl.
+    (Gold >= 150), addItem(shears_1, 1), reduceGold(150),
+    write('Congratulations! Transaction completed. +1 Shears Level 1 in your inventory.'), nl.
+
+/* Buy shears level 2*/
+buy_shears_2 :- 
+    player(_, _, _, _, _, _, _, _, _, Gold),
+    (Gold < 300), write('It seems like your money is not enough to buy this item T__T'), nl.
+buy_shears_2 :- 
+    player(_, _, _, _, _, _, LvlRanch, _, _, _),
+    (LvlRanch < 5), write('You need to upgrade your ranching level to level 10 before purchasing this item.'), nl.
+buy_shears_2 :- 
+    player(_, _, _, _, _, _, LvlRanch, _, _, Gold),
+    (Gold >= 300), LvlRanch >=5, addItem(milk_pail_2, 1), reduceGold(300),
+    write('Congratulations! Transaction completed. +1 Shears Level 2 in your inventory.'), nl.
 
 /* Sell items */
 sell :- 

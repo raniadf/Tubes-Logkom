@@ -31,8 +31,6 @@ item(shovel_1, 0, 250, 1, 3, 0, 0).
 item(shovel_2, 0, 500, 2, 10, 0, 0).
 item(hand_fork_1, 0, 150, 1, 1, 0, 0).
 item(hand_fork_2, 0, 300, 2, 5, 0, 0).
-item(watering_can_1, 0, 300, 1, 1, 0, 0).
-item(watering_can_2, 0, 600, 2, 5, 0, 0).
 
 /** Fishing **/
 /* Fish product */
@@ -55,7 +53,7 @@ item(rod_2, 0, 200, 2, 0, 5, 0).
 /* Farm product */
 item(chicken_egg, 0, 100, 0, 0, 0, 0).
 item(milk, 0, 0, 200, 0, 0, 0).
-item(wool, 0, 500, 0, 0, 0, 0).
+item(wool, 0, 0, 0, 0, 0, 0).
 /* Item */
 item(chicken, 0, 500, 0, 0, 0, 1).
 item(cow, 0, 1000, 0, 0, 0, 1).
