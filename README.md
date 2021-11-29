@@ -25,10 +25,8 @@ This project was created by the team you can see on the following table.
 
 
 ## General Information
-Membuat sebuah farm simulation role-playing game sebagai seorang programmer yang harus bertani untuk membayar hutangnya dengan menggunakan bahasa pemrograman deklaratif Prolog (gunakan GNU Prolog).
+Creating a program of farm simulation role-playing game with the background story of a programmer who is forced to do farming, fishing, and ranching, in order to pay his debts. The program was written in a declarative programming language, namely Prolog. To run and play the game, you need GNU Prolog to be used as the terminal base.
 
--quoted from SpesifikasiTugas Besar Logika Komputasional – IF2121
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 ## How to Run
 - Make sure to have [GNU Prolog Console](http://www.gprolog.org/) used to run the program.
