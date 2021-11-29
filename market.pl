@@ -16,24 +16,17 @@ market :- \+gameStarted, !, write('Please type "start" first to start the game a
 /* market :- isOnMarket(Hasil), \+Hasil = 'true', !, write('Please go to the marketplace first!'). */
 
 /* Entering the market */
-/*assertz(inMarket), --> janlup tambahin ini pi klo dah ada posisi playernya*/
-/*isOnMarket(Hasil), Hasil = 'true',*/
 market :- \+inMarket, objPeta(X,Y,'M'), objPeta(X,Y,'P'), assertz(inMarket),
+        write('Welcome to the market!'),nl,
         write('What do you want to do?'), nl,
         write('1. Buy'), nl,
-        write('2. Sell'),nl,
-        write('1/2?'), nl,
-        write('> '),read(Z), (Z =:= 1 -> buy; Z =:= 2 -> sell), nl, !.
-market :- inMarket, objPeta(X,Y,'M'), objPeta(X,Y,'P'),
-        write('What do you want to do?'), nl,
-        write('1. Buy'), nl,
-        write('2. Sell'),nl,
-        write('1/2?'), nl,
-        write('> '),read(Z), (Z == 1 -> buy; Z == 2 -> sell), nl, !.
+        write('2. Sell'),nl, !.
+
+/* Not in the market tile */
 market :- \+inMarket, !, write('Please go to the marketplace first!').
 
 /* Buy */
-buy :- 
+buy :- inMarket,
     write('What do you want to buy?'), nl,
     write('1. Items'), nl,
     write('2. Equipment'), nl,
@@ -41,7 +34,6 @@ buy :-
     write('> '),read(X), (X =:= 1 -> buyItems; X =:= 2 -> buyEquipment).
 
 buyItems :- 
-    write('Welcome to the market!'),nl,
     write('Choose an item!'),nl,
     write('1. Carrot Seed                    50 gold'),nl,
     write('2. Sweet Potato Seed              80 gold'),nl,
@@ -72,129 +64,128 @@ buyItems :-
 /* Buy carrot seed */
 buy_carrot_seed :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 50), write('It seems like your money is not enough to buy this item T__T'), nl.
+    (Gold < 50), write('It seems like your money is not enough to buy this item T__T').
 buy_carrot_seed :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold >= 50), addItem(carrot_seed, 1), reduceGold(50),
-    write('Congratulations! Transaction completed. +1 Carrot seed in your inventory.'), nl.
+    write('Congratulations! Transaction completed. +1 Carrot seed in your inventory.').
 
 /* Buy sweet potato seed */
 buy_sweet_potato_seed :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 80), write('It seems like your money is not enough to buy this item T__T'), nl.
+    (Gold < 80), write('It seems like your money is not enough to buy this item T__T').
 buy_sweet_potato_seed :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold >= 80), addItem(sweet_potato_seed, 1), reduceGold(80),
-    write('Congratulations! Transaction completed. +1 Sweet potato seed in your inventory.'), nl.
+    write('Congratulations! Transaction completed. +1 Sweet potato seed in your inventory.').
 
 /* Buy cassava seed */
 buy_cassava_seed :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 120), write('It seems like your money is not enough to buy this item T__T'), nl.
+    (Gold < 120), write('It seems like your money is not enough to buy this item T__T').
 buy_cassava_seed :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold >= 120), addItem(cassava_seed, 1), reduceGold(120),
-    write('Congratulations! Transaction completed. +1 Cassava seed in your inventory.'), nl.
+    write('Congratulations! Transaction completed. +1 Cassava seed in your inventory.').
 
 /* Buy corn seed */
 buy_corn_seed :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 140), write('It seems like your money is not enough to buy this item T__T'), nl.
+    (Gold < 140), write('It seems like your money is not enough to buy this item T__T').
 buy_corn_seed :- 
     player(_, _,LvlFarm, _, _, _, _, _, _, _),
-    (LvlFarm < 2), write('You need to upgrade your farming level to level 2 before purchasing this item.'), nl.
+    (LvlFarm < 2), write('You need to upgrade your farming level to level 2 before purchasing this item.').
 buy_corn_seed :- 
     player(_, _, LvlFarm, _, _, _, _, _, _, Gold),
     (Gold >= 140), LvlFarm >= 2, addItem(corn_seed, 1), reduceGold(140),
-    write('Congratulations! Transaction completed. +1 Corn seed in your inventory.'), nl.
+    write('Congratulations! Transaction completed. +1 Corn seed in your inventory.').
 
 /* Buy tomato seed */
 buy_tomato_seed :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 130), write('It seems like your money is not enough to buy this item T__T'), nl.
+    (Gold < 130), write('It seems like your money is not enough to buy this item T__T').
 buy_tomato_seed :- 
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
-    (LvlFarm < 3), write('You need to upgrade your farming level to level 3 before purchasing this item.'), nl.
+    (LvlFarm < 3), write('You need to upgrade your farming level to level 3 before purchasing this item.').
 buy_tomato_seed :- 
     player(_, _, LvlFarm, _, _, _, _, _, _, Gold),
     (Gold >= 130), LvlFarm >=3, addItem(tomato_seed, 1), reduceGold(130),
-    write('Congratulations! Transaction completed. +1 Tomato seed in your inventory.'), nl.
+    write('Congratulations! Transaction completed. +1 Tomato seed in your inventory.').
 
 /* Buy potato seed */
 buy_potato_seed :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 150), write('It seems like your money is not enough to buy this item T__T'), nl.
+    (Gold < 150), write('It seems like your money is not enough to buy this item T__T').
 buy_potato_seed :- 
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
-    (LvlFarm < 4), write('You need to upgrade your farming level to level 4 before purchasing this item.'), nl.
+    (LvlFarm < 4), write('You need to upgrade your farming level to level 4 before purchasing this item.').
 buy_potato_seed :- 
     player(_, _, LvlFarm, _, _, _, _, _, _, Gold),
     (Gold >= 150), LvlFarm >= 4, addItem(potato_seed, 1), reduceGold(150),
-    write('Congratulations! Transaction completed. +1 Potato seed in your inventory.'), nl.
+    write('Congratulations! Transaction completed. +1 Potato seed in your inventory.').
 
 /* Buy Grade A food */
 buy_grade_A_food :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 300), write('It seems like your money is not enough to buy this item T__T'), nl.
+    (Gold < 300), write('It seems like your money is not enough to buy this item T__T').
 buy_grade_A_food :- 
     player(_, _, _, _, LvlFish, _, _, _, _, _),
-    (LvlFish < 4), write('You need to upgrade your fishing level to level 4 before purchasing this item.'), nl.
+    (LvlFish < 4), write('You need to upgrade your fishing level to level 4 before purchasing this item.').
 buy_grade_A_food :- 
     player(_, _, _, _, LvlFish, _, _, _, _, Gold),
     (Gold >= 300), LvlFish >= 4, addItem(grade_a_food, 1), reduceGold(300),
-    write('Congratulations! Transaction completed. +1 Grade A food in your inventory.'), nl.
+    write('Congratulations! Transaction completed. +1 Grade A food in your inventory.').
 
 /* Buy Grade B food */
 buy_grade_B_food :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 200), write('It seems like your money is not enough to buy this item T__T'), nl.
+    (Gold < 200), write('It seems like your money is not enough to buy this item T__T').
 buy_grade_B_food :- 
     player(_, _, _, _, LvlFish, _, _, _, _, _),
-    (LvlFish < 2), write('You need to upgrade your fishing level to level 2 before purchasing this item.'), nl.
+    (LvlFish < 2), write('You need to upgrade your fishing level to level 2 before purchasing this item.').
 buy_grade_B_food :- 
     player(_, _, _, _, LvlFish, _, _, _, _, Gold),
     (Gold >= 200), LvlFish >= 2, addItem(grade_b_food, 1), reduceGold(200),
-    write('Congratulations! Transaction completed. +1 Grade B food in your inventory.'), nl.
+    write('Congratulations! Transaction completed. +1 Grade B food in your inventory.').
 
 /* Buy Grade C food */
 buy_grade_C_food :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 100), write('It seems like your money is not enough to buy this item T__T'), nl.
+    (Gold < 100), write('It seems like your money is not enough to buy this item T__T').
 buy_grade_C_food :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold >= 100), addItem(grade_c_food, 1), reduceGold(100),
-    write('Congratulations! Transaction completed. +1 Grade C food in your inventory.'), nl.
+    write('Congratulations! Transaction completed. +1 Grade C food in your inventory.').
 
 /* Buy chicken */
 buy_chicken :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 500), write('It seems like your money is not enough to buy this cute little chicken.'), nl.
+    (Gold < 500), write('It seems like your money is not enough to buy this cute little chicken.').
 buy_chicken :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold >= 500), addItem(chicken, 1), reduceGold(500),
-    write('Congratulations! Transaction completed. Please raise your chicken wisely.'), nl.
+    write('Congratulations! Transaction completed. Please raise your chicken wisely.').
 
 /* Buy cow */
 buy_cow :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 1000), write('It seems like your money is not enough to buy this cute little cow.'), nl.
+    (Gold < 1000), write('It seems like your money is not enough to buy this cute little cow.').
 buy_cow :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold >= 1000), addItem(cow, 1), reduceGold(1000),
-    write('Congratulations! Transaction completed. Please raise your cow wisely.'), nl.
+    write('Congratulations! Transaction completed. Please raise your cow wisely.').
 
 /* Buy sheep */
 buy_sheep :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
-    (Gold < 1500), write('It seems like your money is not enough to buy this cute little sheep.'), nl.
+    (Gold < 1500), write('It seems like your money is not enough to buy this cute little sheep.').
 buy_sheep :- 
     player(_, _, _, _, _, _, _, _, _, Gold),
     (Gold >= 1500), addItem(sheep, 1), reduceGold(1500),
-    write('Congratulations! Transaction completed. Please raise your sheep wisely.'), nl.
+    write('Congratulations! Transaction completed. Please raise your sheep wisely.').
 
 /* Buy Equipment */
 buyEquipment :- 
-    write('Welcome to the market!'),nl,
     write('Choose an equipment!'),nl,
     write('1. Shovel Level 1                 250 gold'), nl,
     write('2. Shovel Level 2                 500 gold'), nl,
@@ -403,11 +394,11 @@ sell :-
           X=:=14 -> sell(potato) ).
 
 /* Sell failed template */
-sell(Item) :-  
+sell(Item) :- inMarket, 
     amountItem(Item, X), (X==0),
     write('You dont have this item in your inventory. Sorry....'), nl.
 /* Sell succeed template */
-sell(Item) :- 
+sell(Item) :- inMarket,
     amountItem(Item, X), (X>0), item(Item, _, Price, _, _, _, _),
     write('How many do you want to sell?'), nl, write('> '),read(Amount),
     ((Amount < X ; Amount == X), dropItems(Item, Amount), 

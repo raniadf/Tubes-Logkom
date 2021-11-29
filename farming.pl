@@ -4,7 +4,7 @@
 isPlant(0,0,0,0).
 /*** Rules ***/
 
-/* itemCount(shovel, 1) */ 
+/** Dig **/
 dig :- objPeta(X,Y,'P'), isDigable('true'), \+isFarmable('true'),
     write('Pick your digging tools!'), nl,
     write('1. Shovel Level 1'), nl,
@@ -16,32 +16,28 @@ dig :- objPeta(X,Y,'P'), isDigable('true'), \+isFarmable('true'),
     Z==2 -> digShovel2 ;
     Z==3 -> digHandFork1 ;
     Z==4 -> digHandFork2 ), !.
-
-/** perdig2an ini harus nyetak - jadi = */
-/* dig Once -> add day 1x*/
 digShovel1 :- amountItem(shovel_1, Amount), Amount == 0, 
     write('Please buy this item first!'), !.
 digShovel1 :- amountItem(shovel_1, Amount), Amount > 0, addDay, 
     write('Land has been digged!'), digTile, !.
-
 digShovel2 :- amountItem(shovel_2, Amount), Amount == 0, 
     write('Please buy this item first!'), !.
 digShovel2 :- amountItem(shovel_2, Amount), Amount > 0,
     write('Land has been digged!'), digTile, !.
-
-/* dig Twice -> add day 2x */
 digHandFork1 :- amountItem(hand_fork_1, Amount), Amount == 0, 
     write('Please buy this item first!'), !.
 digHandFork1 :- amountItem(hand_fork_1, Amount), Amount > 0,
     addDay, addDay, addDay,
     write('Land has been digged!'), digTile, !.
-
 digHandFork2 :- amountItem(hand_fork_2, Amount), Amount == 0, 
     write('Please buy this item first!'), !.
 digHandFork2 :- amountItem(hand_fork_2, Amount), Amount > 0,
     addDay, addDay,
     write('Land has been digged!'), digTile, !.
 
+/** Plant **/
+plant :- \+isFarmable('true'), 
+    write('Please dig the land first'), !.
 plant :- objPeta(X,Y,'P'), isFarmable('true'), \+isPlant(X,Y, _, _), 
     write('What do you want to plant?'), nl,
     write('Seeds you have : '), nl,
@@ -66,7 +62,7 @@ plant :- objPeta(X,Y,'P'), isFarmable('true'), \+isPlant(X,Y, _, _),
     Z==5 -> plant_tomato ;
     Z==6 -> plant_potato ), !.
 
-/* addExp(X) :
+/* addExpFarming(X) :
     X = 100 carrot
     X = 150 sweet potato
     X = 125 cassava
@@ -93,56 +89,56 @@ plant :- objPeta(X,Y,'P'), isFarmable('true'), \+isPlant(X,Y, _, _),
 plant_carrot :- objPeta(X,Y,'P'), plantCropC,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
-    addExp(100),
+    addExpFarming(2),
     dropItems(carrot_seed, 1),
     (LvlFarm < 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,'carrot', HarvestDay)) ;
     LvlFarm >= 10 -> HarvestDay is Day + 2, assertz(isPlant(X,Y,'carrot', HarvestDay))),
-    write('You planted a carrot seed'), nl, !.
+    write('You planted a carrot seed.'), nl, !.
 
 plant_sweet_potato :- objPeta(X,Y,'P'), plantCropSp,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
-    addExp(150),
+    addExpFarming(3),
     dropItems(sweet_potato_seed, 1),
     (LvlFarm < 10 -> HarvestDay is Day + 4, assertz(isPlant(X,Y,'sweet_potato', HarvestDay)) ;
     LvlFarm >= 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,'sweet_potato', HarvestDay))),
-    write('You planted a sweet potato seed'), nl, !.
+    write('You planted a sweet potato seed.'), nl, !.
 
 plant_cassava :- objPeta(X,Y,'P'), plantCropCs,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
-    addExp(125),
+    addExpFarming(3),
     dropItems(cassava_seed, 1),
     (LvlFarm < 10 -> HarvestDay is Day + 2, assertz(isPlant(X,Y,'cassava', HarvestDay)) ;
     LvlFarm >= 10 -> HarvestDay is Day + 1, assertz(isPlant(X,Y,'cassava', HarvestDay))),
-    write('You planted a cassava seed'), nl, !.
+    write('You planted a cassava seed.'), nl, !.
 
 plant_corn :- objPeta(X,Y,'P'), plantCropCr,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
-    addExp(200),
+    addExpFarming(4),
     dropItems(corn_seed, 1),
     (LvlFarm < 10 -> HarvestDay is Day + 4, assertz(isPlant(X,Y,'corn', HarvestDay)) ;
     LvlFarm >= 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,'corn', HarvestDay))),
-    write('You planted a corn seed'), nl, !.
+    write('You planted a corn seed.'), nl, !.
 
 plant_tomato :- objPeta(X,Y,'P'), plantCropT,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
-    addExp(150),
+    addExpFarming(4),
     dropItems(tomato_seed, 1),
     (LvlFarm < 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,'tomato', HarvestDay)) ;
     LvlFarm >= 10 -> HarvestDay is Day + 2, assertz(isPlant(X,Y,'tomato', HarvestDay))),
-    write('You planted a tomato seed'), nl, !.
+    write('You planted a tomato seed.'), nl, !.
 
 plant_potato :- objPeta(X,Y,'P'), plantCropP,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
-    addExp(175),
+    addExpFarming(5),
     dropItems(potato_seed, 1),
     (LvlFarm < 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,'potato', HarvestDay)) ;
     LvlFarm >= 10 -> HarvestDay is Day + 2, assertz(isPlant(X,Y,'potato', HarvestDay))),
-    write('You planted a potato seed'), nl, !.
+    write('You planted a potato seed.'), nl, !.
 
 /** Harvest **/
 harvest :- objPeta(X,Y,'P'), \+isFarmable('true'), \+isPlant(X,Y, _, _),
