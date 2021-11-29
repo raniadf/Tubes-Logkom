@@ -11,11 +11,15 @@ posisi(house).
 
 house :-
     \+ gameStarted,!,
-    write('Mohon mulai game terlebih dahulu dengan input start.'),nl.
+    write('Please start the game first using \'start.\''),nl.
+
+house :-
+    \+ isOnHouse('true'),!,
+    write('Please go to the house first'),nl.
 
 house :-
     inHouse,!,
-    write('Anda sudah berada di dalam house'),nl.
+    write('You\'re already inside the house'),nl.
 
 house :-
     /* nanti tambahin posisi udah sama ato belom*/
@@ -28,11 +32,11 @@ house :-
 
 sleep :-
     \+ gameStarted,!,
-    write('Mohon mulai game terlebih dahulu dengan input start.'),nl.
+    write('Please start the game first using \'start.\''),nl.
 
 sleep :-
     \+inHouse,!,
-    write('Anda belum masuk ke dalam Rumah').
+    write('You\'re not inside the house').
 
 sleep :-
     failState,!.
@@ -40,17 +44,13 @@ sleep :-
 sleep :-
     \+failState,!,
     gameStarted,!,
-    day(X),!,
-    NEW_DAY is X + 1,
-    retract(day(X)),
-    asserta(day(NEW_DAY)),
-    addHasil,
+    addDay,!,
     write('Anda sudah tertidur'),nl,
     format('Day ~d ~n',[NEW_DAY]).
 
 exitHouse :-
     \+ inHouse,!,
-    write('Anda sedang tidak berada di dalam rumah'),nl.
+     write('You\'re not inside the house'),nl.
 
 exitHouse :-
     inHouse,!,
@@ -59,7 +59,7 @@ exitHouse :-
 
 writeDiary :-
     \+inHouse,!,
-    write('Anda belum masuk ke dalam Rumah').
+     write('You\'re not inside the house').
 
 writeDiary :-
     inHouse,!,
@@ -75,7 +75,7 @@ writeDiary :-
 
 readDiary :-
     \+inHouse,!,
-    write('Anda belum masuk ke dalam Rumah').
+     write('You\'re not inside the house').
 
 readDiary :-
     forall(diaryExist(DAY), format('- Day ~d~n',[DAY])),

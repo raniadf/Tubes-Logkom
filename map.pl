@@ -267,6 +267,9 @@ isNearWater(Hasil) :-
 isOnRanch(Hasil) :-
     objPeta(X,Y,'P'), objPeta(X,Y,'R'), Hasil = 'true'.
 
+isOnHouse(Hasil) :-
+    objPeta(X,Y,'H'), objPeta(X,Y,'P'), Hasil = 'true'.
+
 isOnMarket(Hasil) :-
     objPeta(X,Y,'M'), objPeta(X,Y,'P'), Hasil = 'true', assertz(inMarket).
 
