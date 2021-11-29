@@ -7,7 +7,7 @@
 :- include('inventory.pl').
 :- include('map.pl').
 :- include('fishing.pl').
-
+:- include('farming.pl').
 
 /* FACTS */
 /* Idenya waktu dihitung per 1 move = 1 hari, tp bisa diganti juga */ 
