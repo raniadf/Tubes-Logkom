@@ -22,12 +22,14 @@ market :- \+inMarket, objPeta(X,Y,'M'), objPeta(X,Y,'P'), assertz(inMarket),
         write('What do you want to do?'), nl,
         write('1. Buy'), nl,
         write('2. Sell'),nl,
+        write('1/2?'), nl,
         write('> '),read(Z), (Z =:= 1 -> buy; Z =:= 2 -> sell), nl, !.
 market :- inMarket, objPeta(X,Y,'M'), objPeta(X,Y,'P'),
         write('What do you want to do?'), nl,
         write('1. Buy'), nl,
         write('2. Sell'),nl,
-        write('> '),read(Z), (Z =:= 1 -> buy; Z =:= 2 -> sell), nl, !.
+        write('1/2?'), nl,
+        write('> '),read(Z), (Z == 1 -> buy; Z == 2 -> sell), nl, !.
 market :- \+inMarket, !, write('Please go to the marketplace first!').
 
 /* Buy */
