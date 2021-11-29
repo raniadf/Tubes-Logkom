@@ -47,8 +47,8 @@ increaseOpportunity :-
 haveFishingRod :-
     amountItem(fishnet_1,A),!,
     amountItem(fishnet_2,B),!,
-    amountItem(rod_1,C),
-    amountItem(rod_2,D),
+    amountItem(rod_1,C),!,
+    amountItem(rod_2,D),!,
     (
         A >0;B >0;C>0;D>0
     ).
