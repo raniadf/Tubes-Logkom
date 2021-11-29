@@ -164,12 +164,12 @@ harvest :- objPeta(X,Y,'P'), \+isFarmable('true'), \+isPlant(X,Y, _, _),
 harvest :- objPeta(X,Y,'P'), isFarmable('true'), \+isPlant(X,Y, _, _),
     write('Please plant something first!'), nl, !.
 harvest :- objPeta(X,Y,'P'), isFarmable('true'), day(Day),
-    isPlant(X,Y, _, HarvestDay), HarvestDay > Day, 
-    write('It\'s not harvest time yet! Please come back at day '), write(HarvestDay), write('.'), !.
-harvest :- objPeta(X,Y,'P'), isFarmable('true'), day(Day),
-    isPlant(X,Y, _, HarvestDay), (HarvestDay <= Day),
+    isPlant(X,Y, _, HarvestDay), HarvestDay > Day,
     write('Today is Day '),write(Day), nl, 
-    write('Harvest day is Day '), write(HarvestDay), nl,
+    write('Harvest day is Day '), write(HarvestDay), nl, 
+    write('Please come back later'), !.
+harvest :- objPeta(X,Y,'P'), isFarmable('true'), day(Day),
+    isPlant(X,Y, _, HarvestDay), (HarvestDay < Day ; HarvestDay == Day),
     (isPlant(X,Y, carrot, _) -> harvest_carrot ;
     isPlant(X,Y, sweet_potato, _) -> harvest_sweet_potato ;
     isPlant(X,Y, cassava, _) -> harvest_cassava ;
