@@ -2,6 +2,9 @@
 :- include('inventory.pl').
 
 :- dynamic(range/2).
+:- dynamic(fishAmount/1).
+
+fishAmount(1).
 
 range(1,15).
 maxRange(55).
@@ -24,16 +27,26 @@ fish :-
 
 fish :-
     isNearWater('true'),!,
-    range(MIN,MAX),!,
-    random(MIN,MAX,VALUE),
+    write('Choose your fishing tool: '),nl,
+    write('1. Fishnet level 1'),nl,
+    write('2. Fishnet level 2'),nl,
+    write('3. Fishing rod level 1'),nl,
+    write('4. Fishing rod level 2'),nl,
+    write('>'),read(A),
     (
-        between(45,50,VALUE) -> addItem(salmon,1),write('You got salmon!'),nl,addExpFishing(50);
-        between(36,45,VALUE) -> addItem(tuna,1),write('You got tuna!'),nl,addExpFishing(40);
-        between(26,35,VALUE) -> addItem(mahi_mahi,1),write('You got mahi-mahi!'),nl,addExpFishing(30);
-        between(16,25,VALUE) -> addItem(red_snapper,1),write('You got red_snapper!'),nl,addExpFishing(20);
-        between(6,15,VALUE) -> addItem(catfish,1),write('You got catfish!'),nl,addExpFishing(10);
+        chooseEquipment(A) -> range(MIN,MAX),!,
+        random(MIN,MAX,VALUE),fishAmount(Amount),
+        (
+        between(45,50,VALUE) -> addItem(salmon,Amount),write('You got salmon!'),nl,addExpFishing(50 * Amount);
+        between(36,45,VALUE) -> addItem(tuna,Amount),write('You got tuna!'),nl,addExpFishing(40 * Amount);
+        between(26,35,VALUE) -> addItem(mahi_mahi,Amount),write('You got mahi-mahi!'),nl,addExpFishing(30* Amount);
+        between(16,25,VALUE) -> addItem(red_snapper,Amount),write('You got red_snapper!'),nl,addExpFishing(20 * Amount);
+        between(6,15,VALUE) -> addItem(catfish,Amount),write('You got catfish!'),nl,addExpFishing(10 * Amount);
         write('You didn\'t get anything! '),nl,addExpFishing(5)
-    ),addDay,!.
+        ),addDay;
+        write('You don\'t have the equipment, you have to buy it first'),nl
+    ).
+    
 
 /* tambahin tiap naik level */
 increaseOpportunity :-
@@ -52,3 +65,45 @@ haveFishingRod :-
     (
         A >0;B >0;C>0;D>0
     ).
+
+haveEquipment(Equipment) :-
+    amountItem(Equipment,A),
+    A > 0.
+
+chooseEquipment(A) :-
+    (
+        A =:= 1 -> 
+        (
+            haveEquipment(fishnet_1)-> addFishAmount(1);
+            fail
+        );
+        A =:= 2 -> 
+        (
+            haveEquipment(fishnet_2)-> addFishAmount(2);
+            fail
+        );
+        A =:= 3 -> 
+        (
+            haveEquipment(rod_1)-> resetFishAmount;
+            fail
+        );
+
+        A =:= 4 -> 
+        (
+            haveEquipment(rod_2) -> resetFishAmount, increaseOpportunity;
+            fail
+        );
+        !
+    ).
+
+addFishAmount(X) :-
+    fishAmount(Amount),!,
+    NEW_Amount is Amount + X,
+    retract(fishAmount(Amount)),
+    asserta(fishAmount(NEW_Amount)).
+
+resetFishAmount :-
+    fishAmount(Amount),!,
+    NEW_Amount is 1,
+    retract(fishAmount(Amount)),
+    asserta(fishAmount(NEW_Amount)).
