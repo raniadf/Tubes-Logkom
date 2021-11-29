@@ -63,7 +63,7 @@ displayInventory([A|X], [B|Y], [C|Z]) :-
     displayInventory(X, Y, Z).
 
 
-/* *** ADD ITEMS *** */
+/* *** ADD ITEM *** */
 /* Case 1: Belum ada item 'itemName' di Inventory */
 addItem(ItemName, Quantity) :-
     inventoryCapacity(Max),
@@ -105,8 +105,8 @@ addItem(ItemName, Quantity) :-
     asserta(inventory(ItemName, Qty2, Price, Level, FarmLevel, FishLevel, RanchLevel)),
     write('Your inventory is full! Only '), write(QtyAvailable), write(' '), printItem(ItemName), write(' can be added into your inventory!'), !.
 
+
 /* *** DROP ITEMS *** */
-/* Drop Items */
 /* Case 1: Jumlah yang ingin di-drop melebihi stok di inventory */
 dropItems(ItemName, ItemQty) :-
     inventory(ItemName, Qty, _, _, _, _, _),
@@ -125,6 +125,50 @@ dropItems(ItemName, ItemQty) :-
     ItemQty =< Qty,
     Qty2 is Qty - ItemQty,
     retract(inventory(ItemName, Qty, Price, Level, FarmLevel, FishLevel, RanchLevel)),
-    asserta(inventory(ItemName, Qty2, Price, Level, FarmLevel, FishLevel, RanchLevel)),
+    asserta(inventory(ItemName, Qty2, Price, Level, FarmLevel, FishLevel, RanchLevel)), !.
+
+
+/* *** THROW ITEM *** */
+/* throwItem */
+throwItem :-
+    write('Your inventory'), nl,
+    makeListItems(ListofLevel, ListofQty, ListofName),
+    displayInventory(ListofLevel, ListofQty, ListofName),
     nl,
-    write('You just drop '), write(Qty), write(' '), printItem(ItemName), write('!'), nl, !.
+    write('What do you want to throw?'), nl,
+    read(ItemName),
+    throwItemName(ItemName), !.
+
+/* throwItemName */
+/* Case 1: Tidak ada item yang ingin di-throw */
+throwItemName(ItemName) :-
+    \+ inventory(ItemName, _, _, _, _, _, _),
+    nl,
+    write('You don\'t have '), printItem(ItemName), write(' in your inventory! Cancelling...'), nl, !.
+/* Case 2: Terdapat item yang ingin di-throw */
+throwItemName(ItemName) :-
+    inventory(ItemName, Qty, _, _, _, _, _),
+    nl,
+    write('You have '), write(Qty), write(' '), printItem(ItemName), write('. How many '), printItem(ItemName), write(' do you want to throw? (type \'0\' if u want to cancel)'), nl,
+    read(Amount),
+    throwAmount(ItemName, Amount).
+
+/* throwAmount */
+/* Case 1: Pemain membatalkan proses throw */
+throwAmount(ItemName, Qty) :-
+    Qty =:= 0,
+    nl,
+    write('You cancelled to throw '), printItem(ItemName), write('! Cancelling...'), nl, !.
+/* Case 2: Jumlah yang ingin di-throw melebihi stok di inventory */
+throwAmount(ItemName, ItemQty) :-
+    inventory(ItemName, Qty, _, _, _, _, _),
+    ItemQty > Qty,
+    nl,
+    write('You don\'t have enough '), printItem(ItemName), write(' to throw! Cancelling...'), nl, !.
+/* Case 3: Jumlah yang ingin di-throw mencukupi */
+throwAmount(ItemName, ItemQty) :-
+    inventory(ItemName, Qty, _, _, _, _, _),
+    ItemQty =< Qty,
+    dropItems(ItemName, ItemQty),
+    nl,
+    write('You threw '), write(ItemQty), write(' '), printItem(ItemName), write(' away!'), nl, !.
