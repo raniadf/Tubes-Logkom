@@ -11,8 +11,6 @@
     7. Minimum ranching level
 */
 
-/* item(name, qty, price, level, farmLevel, fishLevel, ranchLevel) */
-
 /** Farming **/
 /* Farm product */
 item(carrot, 0, 0, 0, 0, 0, 0).
@@ -67,3 +65,47 @@ item(milk_pail_1, 0, 100, 1, 0, 0, 1).
 item(milk_pail_2, 0, 200, 2, 0, 0, 5).
 item(shears_1, 0, 150, 1, 0, 0, 1).
 item(shears_2, 0, 300, 2, 0, 0, 5).
+
+/*** Rules ***/
+/* Print Item */
+printItem(Item) :-
+    ( Item =:= carrot -> write('Carrot') ;
+    Item =:= sweet_potato -> write('Sweet Potato') ;
+    Item =:= cassava -> write('Cassava') ; 
+    Item =:= corn -> write('Corn') ;
+    Item =:= tomato -> write('Tomato') ;
+    Item =:= potato -> write('Potato') ;
+    Item =:= carrot_seed -> write('Carrot Seed') ;
+    Item =:= sweet_potato_seed -> write('Sweet Potato Seed') ;
+    Item =:= cassava_seed -> write('Cassava Seed') ;
+    Item =:= corn_seed -> write('Corn Seed') ;
+    Item =:= tomato_seed -> write('Tomato Seed') ;
+    Item =:= potato_seed -> write('Potato Seed') ;
+    Item =:= shovel_1 -> write('Shovel');
+    Item =:= shovel_2 -> write('Shovel');
+    Item =:= hand_fork_1 -> write('Hand Fork');
+    Item =:= hand_fork_2 -> write('Hand Fork');
+    Item =:= watering_can_1 -> write('Watering Can');
+    Item =:= watering_can_2 -> write('Watering Can');
+    Item =:= salmon -> write('Salmon');
+    Item =:= tuna -> write('Tuna');
+    Item =:= mahi_mahi -> write('Mahi-Mahi');
+    Item =:= red_snapper -> write('Red Snapper');
+    Item =:= catfish -> write('Catfish');
+    Item =:= grade_a_food -> write('Grade A Food');
+    Item =:= grade_b_food -> write('Grade B Food');
+    Item =:= grade_c_food -> write('Grade C Food'):
+    Item =:= fishnet_1 -> write('Fishnet');
+    Item =:= fishnet_2 -> write('Fishnet');
+    Item =:= rod_1 -> write('Fishing Rod');
+    Item =:= rod_2 -> write('Fishing Rod');
+    Item =:= chicken_egg -> write('Chicken Egg');
+    Item =:= milk -> write('Milk');
+    Item =:= wool -> write('Wool');
+    Item =:= chicken -> write('Chicken');
+    Item =:= cow -> write('Cow');
+    Item =:= sheep -> write('Sheep');
+    Item =:= milk_pail_1 -> write('Milk Pail');
+    Item =:= milk_pail_2 -> write('Milk Pail') :
+    Item =:= shears_1 -> write('Shears') ;
+    Item =:= shears_2 -> write('Shears')), !.
