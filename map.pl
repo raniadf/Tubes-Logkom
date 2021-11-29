@@ -344,6 +344,9 @@ isNearWater(Hasil) :-
 isOnRanch(Hasil) :-
     objPeta(X,Y,'P'), objPeta(X,Y,'R'), Hasil = 'true'.
 
+isOnQuest(Hasil) :-
+    objPeta(X,Y,'P'), objPeta(X,Y,'Q'), Hasil = 'true'.
+
 isOnHouse(Hasil) :-
     objPeta(X,Y,'H'), objPeta(X,Y,'P'), Hasil = 'true'.
 
@@ -351,7 +354,9 @@ isOnMarket(Hasil) :-
     objPeta(X,Y,'M'), objPeta(X,Y,'P'), Hasil = 'true', assertz(inMarket).
 
 isDigable(Hasil) :-
-    \+isOnMarket('true'), \+isOnRanch('true'), \+ (objPeta(X,Y,'P'), objPeta(X,Y,'o')), Hasil = 'true'.
+    \+isOnMarket('true'), \+isOnRanch('true'),
+	\+isOnHouse('true'), \+isOnQuest('true'),
+	\+ (objPeta(X,Y,'P'), objPeta(X,Y,'o')), Hasil = 'true'.
 
 isFarmable(Hasil) :-
     objPeta(X,Y,'P'), objPeta(X,Y,'='), Hasil = 'true'.
