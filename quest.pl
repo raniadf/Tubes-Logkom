@@ -5,9 +5,11 @@
 
 
 /* FACTS */
-/* questInfo(ItemA, X, ItemB, Y, ItemC, Z, Exp, Gold): mengumpulkan X item hasil panen, Y ikan, dan Z item hasil ranching */
+/* questInfo(ItemA, X, ItemB, Y, ItemC, Z, Exp, Gold): mengumpulkan X item hasil panen A, Y ikan B, dan Z item hasil ranching C untuk mendapatkan Exp dan Gold */
 :- dynamic(questInfo/8).
+/* questAvail: menandakan state quest sedang aktif */
 :- dynamic(questAvail/0).
+
 
 /* RULES */
 quest :-
@@ -18,12 +20,14 @@ quest :-
     \+isOnQuest('true'), !,
     write('Please go to the tile \'Q\' first'), nl.
 
+/* Mengambil quest pada saat tidak ada quest yang sedang aktif */
 quest:-
     isOnQuest('true'), \+questAvail,
     /* Mengacak jumlah item quest yang harus dikumpulkan */
     random(2, 6, X),
     random(2, 6, Y),
     random(2, 6, Z),
+    /* Mengacak jenis item quest yang harus dikumpulkan */
     random(1, 6, H),
     ( H==1 -> ItemA = carrot ;
     H==2 -> ItemA = sweet_potato ;
@@ -41,9 +45,11 @@ quest:-
     ( J==1 -> ItemC = chicken_egg ;
     J==2 -> ItemC = milk ;
     J==3 -> ItemC = wool ),
+    /* Mengacak reward exp dan gold yang bisa didapatkan */
     random(100, 500, M),
     random(1000, 5000, N),
     assertz(questInfo(ItemA, X, ItemB, Y, ItemC, Z, M, N)),
+    /* Quest aktif */
     assertz(questAvail),
     write('Find :'), nl,
     write('- '), write(X), write(' '), printItem(ItemA), nl, 
@@ -52,7 +58,10 @@ quest:-
     write('Rewards: '), write(M), write(' exp and '), write(N), write(' golds'), nl,
     write('You can go back here once you\'ve found them all to collect the reward!'), nl, !.
 
-quest :- questAvail, questInfo(ItemA, X, ItemB, Y, ItemC, Z, M, N),
+/* Mengambil quest pada saat sudah ada quest yang sedang aktif */
+quest :- 
+    questAvail, 
+    questInfo(ItemA, X, ItemB, Y, ItemC, Z, M, N),
     write('Current quest : '),nl,
     write('- '), write(X), write(' '), printItem(ItemA), nl, 
     write('- '), write(Y), write(' '), printItem(ItemB), nl, 
