@@ -74,12 +74,12 @@ chooseEquipment(A) :-
     (
         A =:= 1 -> 
         (
-            haveEquipment(fishnet_1)-> addFishAmount(1);
+            haveEquipment(fishnet_1)-> resetFishAmount,addFishAmount(1);
             fail
         );
         A =:= 2 -> 
         (
-            haveEquipment(fishnet_2)-> addFishAmount(2);
+            haveEquipment(fishnet_2)-> resetFishAmount,addFishAmount(2);
             fail
         );
         A =:= 3 -> 
