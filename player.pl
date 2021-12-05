@@ -176,9 +176,9 @@ addExpFishing(X) :-
 		player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold),
 		retract(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, ExpFish, LvlRanch, ExpRanch, Exp, Gold)),
         assertz(player(Job, Lvl, LvlFarm, ExpFarm, LvlFish, NewExpFish, LvlRanch, ExpRanch, Exp, Gold))
-	),
+	).
 	/* Exp player akan bertambah 1/2 kali dari penambahan exp fishing */
-	addExp(X).
+	
 /* Menambah exp ranching sambil level up  */
 addExpRanching(X) :-
 	expRanch(LvlRanch, Xbefore, Max), 

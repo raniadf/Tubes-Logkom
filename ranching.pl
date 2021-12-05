@@ -86,12 +86,13 @@ cow :-
         write('Please check again later.'),nl;
 
         0 < JUMLAH_SUSU -> format('Your cow produced ~d milk! ~n',[JUMLAH_SUSU]),
-        format('You fot ~d milk!~n',[JUMLAH_SUSU]),
+        format('You got ~d milk!~n',[JUMLAH_SUSU]),
         EXP is JUMLAH_SUSU * 5,
         addExpRanching(EXP),
         retract(susu(JUMLAH_SUSU,X)),
         asserta(susu(0,X)),
-        addItem(susu,JUMLAH_SUSU)
+        addItem(milk,JUMLAH_SUSU);
+        !
     ).
 
 sheep :-

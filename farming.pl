@@ -93,7 +93,7 @@ plant_carrot :- amountItem(carrot_seed, Amount), Amount == 0,
 plant_carrot :- objPeta(X,Y,'P'), plantCropC,
     player(_, _, LvlFarm, _, _, _, _, _, _, _),
     day(Day),
-    addExpFarming(2),
+    addExpFarming(50),
     dropItems(carrot_seed, 1),
     (LvlFarm < 10 -> HarvestDay is Day + 3, assertz(isPlant(X,Y,'carrot', HarvestDay)) ;
     LvlFarm >= 10 -> HarvestDay is Day + 2, assertz(isPlant(X,Y,'carrot', HarvestDay))),
