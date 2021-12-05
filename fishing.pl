@@ -37,11 +37,11 @@ fish :-
         chooseEquipment(A) -> range(MIN,MAX),!,
         random(MIN,MAX,VALUE),fishAmount(Amount),
         (
-        between(45,50,VALUE) -> addItem(salmon,Amount),write('You got salmon!'),nl,addExpFishing(50 * Amount);
-        between(36,45,VALUE) -> addItem(tuna,Amount),write('You got tuna!'),nl,addExpFishing(40 * Amount);
-        between(26,35,VALUE) -> addItem(mahi_mahi,Amount),write('You got mahi-mahi!'),nl,addExpFishing(30* Amount);
-        between(16,25,VALUE) -> addItem(red_snapper,Amount),write('You got red_snapper!'),nl,addExpFishing(20 * Amount);
-        between(6,15,VALUE) -> addItem(catfish,Amount),write('You got catfish!'),nl,addExpFishing(10 * Amount);
+        between(45,50,VALUE) -> addItem(salmon,Amount),write('You got salmon!'),nl,addExpFishing(50);
+        between(36,45,VALUE) -> addItem(tuna,Amount),write('You got tuna!'),nl,addExpFishing(40);
+        between(26,35,VALUE) -> addItem(mahi_mahi,Amount),write('You got mahi-mahi!'),nl,addExpFishing(30);
+        between(16,25,VALUE) -> addItem(red_snapper,Amount),write('You got red_snapper!'),nl,addExpFishing(20);
+        between(6,15,VALUE) -> addItem(catfish,Amount),write('You got catfish!'),nl,addExpFishing(10);
         write('You didn\'t get anything! '),nl,addExpFishing(5)
         ),addDay;
         write('You don\'t have the equipment, you have to buy it first'),nl

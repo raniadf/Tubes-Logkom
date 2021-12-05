@@ -146,9 +146,6 @@ writeAnimal(Animal) :-
         !
     ).
 
-
-    wool(JUMLAH_WOOl,Y),
-    susu(JUMLAH_SUSU,Z),
 addMilk :-
     susu(JUMLAH_SUSU,Z),
     amountItem(cow,A),!,

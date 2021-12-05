@@ -45,6 +45,7 @@ sleep :-
     \+failState,!,
     gameStarted,!,
     addDay,!,
+    day(NEW_DAY),
     write('Anda sudah tertidur'),nl,
     format('Day ~d ~n',[NEW_DAY]).
 
