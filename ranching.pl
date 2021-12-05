@@ -69,11 +69,12 @@ chicken :-
 
         0 < JUMLAH_TELUR -> format('Your chicken layed ~d eggs! ~n',[JUMLAH_TELUR]),
         format('You got ~d eggs!~n',[JUMLAH_TELUR]),
+        addItem(chicken_egg,JUMLAH_TELUR),
         EXP is JUMLAH_TELUR * 2,
         addExpRanching(EXP),
         retract(telur(JUMLAH_TELUR,X)),
-        asserta(telur(0,X)),
-        addItem(chicken_egg,JUMLAH_TELUR)
+        asserta(telur(0,X))
+        
     ).
 
 cow :-
