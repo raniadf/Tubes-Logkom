@@ -49,7 +49,7 @@ start:-
     write('2. Farmer'),nl,
     write('3. Rancher'),nl,
     write('> '),read(X),
-    write('You chose '),writeRole(X),write(', Let\'s start farming'),nl.
+    write('You chose '),writeRole(X),write(', Let\'s start farming!'),nl.
 
 start :-
     !, write('Game has already been started, use \'help\' to show commands').
@@ -129,10 +129,11 @@ goalState :-
     day(DAY),!,
     DAY =< 365,GOLD >= 20000,
     write('Congratulations! You have finally collected 20000 golds!'),nl,
+    write('You have finished the game!'),nl,
     retract(gameStarted).
 
 failState :-
     player(_,_,_,_,_,_,_,_,_,GOLD),!,
     day(DAY),!,
     DAY > 365,GOLD < 20000,
-    write('You have worked hard, but in the end result is all that matters.May God bless you in the future with kind people!'),retract(gameStarted),nl.
+    write('You have worked hard, but in the end result is all that matters. May God bless you in the future with kind people!'),retract(gameStarted),nl.

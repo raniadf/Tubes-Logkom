@@ -24,7 +24,7 @@ ranching :-
     /* cocokin posisi player sama ranch */
     (
         \+ haveAnimal -> write('You don\'t have any animals in your ranch'),nl;
-        write('Welcome to the ranch you have: '),nl,
+        write('Welcome to the ranch! You have: '),nl,
         writeAnimal(chicken),!,
         writeAnimal(cow),!,
         writeAnimal(sheep),!
